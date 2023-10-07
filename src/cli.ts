@@ -3,7 +3,7 @@ import { description, version } from '../package.json';
 import aicommit from './commands/aicommit.js';
 import prepareCommitMessageHook from './commands/prepare-commit-msg-hook.js';
 import configCommand from './commands/config.js';
-import hookCommand, {isCalledFromGitHook} from './commands/hook.js';
+import hookCommand, { isCalledFromGitHook } from './commands/hook.js';
 
 const rawArgv = process.argv.slice(2);
 

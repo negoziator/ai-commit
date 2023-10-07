@@ -1,4 +1,4 @@
-import {execa} from 'execa';
+import { execa } from 'execa';
 import {
     black, dim, green, red, bgCyan,
 } from 'kolorist';
@@ -10,9 +10,9 @@ import {
     getStagedDiff,
     getDetectedMessage,
 } from '../utils/git.js';
-import {getConfig} from '../utils/config.js';
-import {generateCommitMessage} from '../utils/openai.js';
-import {KnownError, handleCliError} from '../utils/error.js';
+import { getConfig } from '../utils/config.js';
+import { generateCommitMessage } from '../utils/openai.js';
+import { KnownError, handleCliError } from '../utils/error.js';
 
 export default async (
     generate: number | undefined,
@@ -93,7 +93,7 @@ export default async (
     } else {
         const selected = await select({
             message: `Pick a commit message to use: ${dim('(Ctrl+c to exit)')}`,
-            options: messages.map(value => ({label: value, value})),
+            options: messages.map(value => ({ label: value, value })),
         });
 
         if (isCancel(selected)) {

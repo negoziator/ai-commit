@@ -10,7 +10,7 @@ import { getConfig } from '../utils/config.js';
 import { generateCommitMessage } from '../utils/openai.js';
 import { KnownError, handleCliError } from '../utils/error.js';
 
-const [ messageFilePath, commitSource ] = process.argv.slice(2);
+const [messageFilePath, commitSource] = process.argv.slice(2);
 
 export default () => (async () => {
     if (!messageFilePath) {
@@ -30,7 +30,7 @@ export default () => (async () => {
 
     intro(bgCyan(black(' aicommit ')));
 
-    const {env} = process;
+    const { env } = process;
     const config = await getConfig({
         proxy: env.https_proxy || env.HTTPS_PROXY || env.http_proxy || env.HTTP_PROXY,
     });

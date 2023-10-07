@@ -154,8 +154,7 @@ export const getConfig = async (
         if (suppressErrors) {
             try {
                 parsedConfig[key] = parser(value);
-            } catch {
-            }
+            } catch {}
         } else {
             parsedConfig[key] = parser(value);
         }

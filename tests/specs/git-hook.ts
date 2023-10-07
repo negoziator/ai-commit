@@ -7,13 +7,13 @@ import {
     files,
 } from '../utils.js';
 
-export default testSuite(({describe}) => {
-    describe('Git hook', ({test}) => {
+export default testSuite(({ describe }) => {
+    describe('Git hook', ({ test }) => {
         assertOpenAiToken();
 
         test('errors when not in Git repo', async () => {
-            const {fixture, aicommit} = await createFixture(files);
-            const {exitCode, stderr} = await aicommit(['hook', 'install'], {
+            const { fixture, aicommit } = await createFixture(files);
+            const { exitCode, stderr } = await aicommit(['hook', 'install'], {
                 reject: false,
             });
 
@@ -24,7 +24,7 @@ export default testSuite(({describe}) => {
         });
 
         test('installs from Git repo subdirectory', async () => {
-            const {fixture, aicommit} = await createFixture({
+            const { fixture, aicommit } = await createFixture({
                 ...files,
                 'some-dir': {
                     'file.txt': '',
@@ -32,7 +32,7 @@ export default testSuite(({describe}) => {
             });
             await createGit(fixture.path);
 
-            const {stdout} = await aicommit(['hook', 'install'], {
+            const { stdout } = await aicommit(['hook', 'install'], {
                 cwd: path.join(fixture.path, 'some-dir'),
             });
             expect(stdout).toMatch('Hook installed');
@@ -43,10 +43,10 @@ export default testSuite(({describe}) => {
         });
 
         test('Commits', async () => {
-            const {fixture, aicommit} = await createFixture(files);
+            const { fixture, aicommit } = await createFixture(files);
             const git = await createGit(fixture.path);
 
-            const {stdout} = await aicommit(['hook', 'install']);
+            const { stdout } = await aicommit(['hook', 'install']);
             expect(stdout).toMatch('Hook installed');
 
             await git('add', ['data.json']);
@@ -57,7 +57,7 @@ export default testSuite(({describe}) => {
                 },
             });
 
-            const {stdout: commitMessage} = await git('log', ['--pretty=%B']);
+            const { stdout: commitMessage } = await git('log', ['--pretty=%B']);
             console.log('Committed with:', commitMessage);
             expect(commitMessage.startsWith('# ')).not.toBe(true);
 

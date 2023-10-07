@@ -69,7 +69,7 @@ const createChatCompletion = async (
     timeout: number,
     proxy?: string,
 ) => {
-    const {response, data} = await httpsPost(
+    const { response, data } = await httpsPost(
         'api.openai.com',
         '/v1/chat/completions',
         {
@@ -148,11 +148,11 @@ export const generateCommitMessage = async (
                         content: diff,
                     },
                 ],
-                temperature: 0.7, // TODO: Make configurable
+                temperature: 0.7,
                 top_p: 1,
                 frequency_penalty: 0,
                 presence_penalty: 0,
-                max_tokens: 200, // TODO: Make configurable
+                max_tokens: 200,
                 stream: false,
                 n: completions,
             },

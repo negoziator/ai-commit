@@ -2,7 +2,7 @@ import { execa } from 'execa';
 import { KnownError } from './error.js';
 
 export const assertGitRepo = async () => {
-    const { stdout, failed } = await execa('git', ['rev-parse', '--show-toplevel'], {reject: false});
+    const { stdout, failed } = await execa('git', ['rev-parse', '--show-toplevel'], { reject: false });
 
     if (failed) {
         throw new KnownError('The current directory must be a Git repository!');
@@ -23,7 +23,7 @@ const filesToExclude = [
 
 export const getStagedDiff = async (excludeFiles?: string[]) => {
     const diffCached = ['diff', '--cached', '--diff-algorithm=minimal'];
-    const {stdout: files} = await execa(
+    const { stdout: files } = await execa(
         'git',
         [
             ...diffCached,
@@ -41,7 +41,7 @@ export const getStagedDiff = async (excludeFiles?: string[]) => {
         return;
     }
 
-    const {stdout: diff} = await execa(
+    const { stdout: diff } = await execa(
         'git',
         [
             ...diffCached,
