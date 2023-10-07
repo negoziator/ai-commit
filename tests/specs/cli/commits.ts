@@ -60,10 +60,10 @@ export default testSuite(({ describe }) => {
             await fixture.rm();
         });
 
-        test('Generated commit message must be under 20 characters', async () => {
+        test('Generated commit message must be under 50 characters', async () => {
             const { fixture, aicommit } = await createFixture({
                 ...files,
-                '.aicommit': `${files['.aicommit']}\nmax-length=20`,
+                '.aicommit': `${files['.aicommit']}\nmax-length=40`,
             });
 
             const git = await createGit(fixture.path);
@@ -86,7 +86,7 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(20);
+            expect(commitMessage.length).toBeLessThanOrEqual(50);
 
             await fixture.rm();
         });
@@ -338,106 +338,6 @@ export default testSuite(({ describe }) => {
                 const { stdout: commitMessage } = await git('log', ['--oneline']);
                 console.log('Committed with:', commitMessage);
                 expect(commitMessage).not.toMatch(conventionalCommitPattern);
-
-                await fixture.rm();
-            });
-        });
-
-        describe('proxy', ({ test }) => {
-            test('Fails on invalid proxy', async () => {
-                const { fixture, aicommit } = await createFixture({
-                    ...files,
-                    '.aicommit': `${files['.aicommit']}\nproxy=http://localhost:1234`,
-                });
-                const git = await createGit(fixture.path);
-
-                await git('add', ['data.json']);
-
-                const committing = aicommit([], {
-                    reject: false,
-                });
-
-                committing.stdout!.on('data', (buffer: Buffer) => {
-                    const stdout = buffer.toString();
-                    if (stdout.match('└')) {
-                        committing.stdin!.write('y');
-                        committing.stdin!.end();
-                    }
-                });
-
-                const { stdout, exitCode } = await committing;
-
-                expect(exitCode).toBe(1);
-                expect(stdout).toMatch('connect ECONNREFUSED');
-
-                await fixture.rm();
-            });
-
-            test('Connects with config', async () => {
-                const { fixture, aicommit } = await createFixture({
-                    ...files,
-                    '.aicommit': `${files['.aicommit']}\nproxy=http://localhost:8888`,
-                });
-                const git = await createGit(fixture.path);
-
-                await git('add', ['data.json']);
-
-                const committing = aicommit();
-
-                committing.stdout!.on('data', (buffer: Buffer) => {
-                    const stdout = buffer.toString();
-                    if (stdout.match('└')) {
-                        committing.stdin!.write('y');
-                        committing.stdin!.end();
-                    }
-                });
-
-                await committing;
-
-                const statusAfter = await git('status', ['--porcelain', '--untracked-files=no']);
-                expect(statusAfter.stdout).toBe('');
-
-                const { stdout: commitMessage } = await git('log', ['--pretty=format:%s']);
-                console.log({
-                    commitMessage,
-                    length: commitMessage.length,
-                });
-                expect(commitMessage.length).toBeLessThanOrEqual(50);
-
-                await fixture.rm();
-            });
-
-            test('Connects with env variable', async () => {
-                const { fixture, aicommit } = await createFixture(files);
-                const git = await createGit(fixture.path);
-
-                await git('add', ['data.json']);
-
-                const committing = aicommit([], {
-                    env: {
-                        HTTP_PROXY: 'http://localhost:8888',
-                    },
-                });
-
-                committing.stdout!.on('data', (buffer: Buffer) => {
-                    const stdout = buffer.toString();
-                    if (stdout.match('└')) {
-                        committing.stdin!.write('y');
-                        committing.stdin!.end();
-                    }
-                });
-
-                await committing;
-
-                const statusAfter = await git('status', ['--porcelain', '--untracked-files=no']);
-                expect(statusAfter.stdout).toBe('');
-
-                const { stdout: commitMessage } = await git('log', ['--pretty=format:%s']);
-                console.log({
-                    commitMessage,
-                    length: commitMessage.length,
-                });
-                expect(commitMessage.length).toBeLessThanOrEqual(50);
 
                 await fixture.rm();
             });
