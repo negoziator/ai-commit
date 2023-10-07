@@ -1,5 +1,5 @@
 {
-	"name": "aicommit",
+	"name": "@negoziator/ai-commit",
 	"version": "0.0.0-semantic-release",
 	"description": "Writes your git commit messages for you with AI",
 	"keywords": [
@@ -8,7 +8,7 @@
 		"commit"
 	],
 	"license": "MIT",
-	"repository": "NegoZiatoR/ai-commit",
+	"repository": "negoziator/ai-commit",
 	"author": "Lars Schou",
 	"type": "module",
 	"files": [
