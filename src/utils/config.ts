@@ -104,7 +104,7 @@ const configParsers = {
 
         return parsed;
     },
-    'auto-confirm'(autoConfirm?: string | boolean) {
+    'auto-confirm'(autoConfirm?: boolean | symbol) {
         if (!autoConfirm) {
             return false;
         }
