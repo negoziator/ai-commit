@@ -1,8 +1,7 @@
 import { dim } from 'kolorist';
 import { version } from '../../package.json';
 
-export class KnownError extends Error {
-}
+export class KnownError extends Error {}
 
 const indent = '    ';
 

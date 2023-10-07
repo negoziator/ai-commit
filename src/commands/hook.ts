@@ -30,7 +30,7 @@ export default command({
 }, (argv) => {
     (async () => {
         const gitRepoPath = await assertGitRepo();
-        const {installUninstall: mode} = argv._;
+        const { installUninstall: mode } = argv._;
 
         const absoltueSymlinkPath = path.join(gitRepoPath, symlinkPath);
         const hookExists = await fileExists(absoltueSymlinkPath);
@@ -38,8 +38,7 @@ export default command({
             if (hookExists) {
                 // If the symlink is broken, it will throw an error
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
-                const realpath = await fs.realpath(absoltueSymlinkPath).catch(() => {
-                });
+                const realpath = await fs.realpath(absoltueSymlinkPath).catch(() => {});
                 if (realpath === hookPath) {
                     console.warn('The hook is already installed');
                     return;
@@ -47,7 +46,7 @@ export default command({
                 throw new KnownError(`A different ${hookName} hook seems to be installed. Please remove it before installing aicommit.`);
             }
 
-            await fs.mkdir(path.dirname(absoltueSymlinkPath), {recursive: true});
+            await fs.mkdir(path.dirname(absoltueSymlinkPath), { recursive: true });
 
             if (isWindows) {
                 await fs.writeFile(

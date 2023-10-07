@@ -2,18 +2,18 @@ import { expect, testSuite } from 'manten';
 import {
     generateCommitMessage,
 } from '../../../src/utils/openai.js';
-import type {ValidConfig} from '../../../src/utils/config.js';
-import {getDiff} from '../../utils.js';
+import type { ValidConfig } from '../../../src/utils/config.js';
+import { getDiff } from '../../utils.js';
 
-const {OPENAI_KEY} = process.env;
+const { OPENAI_KEY } = process.env;
 
-export default testSuite(({describe}) => {
+export default testSuite(({ describe }) => {
     if (!OPENAI_KEY) {
         console.warn('⚠️  process.env.OPENAI_KEY is necessary to run these tests. Skipping...');
         return;
     }
 
-    describe('Conventional Commits', async ({test}) => {
+    describe('Conventional Commits', async ({ test }) => {
         await test('Should not translate conventional commit type to Japanase when locale config is set to japanese', async () => {
             const japaneseConventionalCommitPattern = /(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\(.*\))?: [\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\uFF00-\uFF9F\u4E00-\u9FAF\u3400-\u4DBF]/;
 
@@ -129,7 +129,7 @@ export default testSuite(({describe}) => {
         });
 
         async function runGenerateCommitMessage(gitDiff: string,
-                                                configOverrides: Partial<ValidConfig> = {}): Promise<string> {
+            configOverrides: Partial<ValidConfig> = {}): Promise<string> {
             const config = {
                 locale: 'en',
                 type: 'conventional',
