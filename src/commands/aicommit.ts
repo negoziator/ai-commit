@@ -51,7 +51,7 @@ export default async (
     });
 
     const s = spinner();
-    s.start('The AI is analyzing your changes');
+    s.start('AI is analyzing your code changes');
     let messages: string[];
     try {
         messages = await generateCommitMessage(
@@ -70,7 +70,7 @@ export default async (
     }
 
     if (messages.length === 0) {
-        throw new KnownError('No commit messages were generated. Try again.');
+        throw new KnownError('No commit messages were generated. Please try again.');
     }
 
     let message: string;
