@@ -8,7 +8,7 @@
 		"commit"
 	],
 	"license": "MIT",
-	"repository": "NegoZiatoR/aicommit",
+	"repository": "NegoZiatoR/ai-commit",
 	"author": "Lars Schou",
 	"type": "module",
 	"files": [

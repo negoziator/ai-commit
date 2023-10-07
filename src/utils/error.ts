@@ -15,6 +15,6 @@ export const handleCliError = (error: any) => {
         }
         console.error(`\n${indent}${dim(`aicommit v${version}`)}`);
         console.error(`\n${indent}Please open a Bug report with the information above:`);
-        console.error(`${indent}https://github.com/NegoZiatoR/aicommit/issues/new/choose`);
+        console.error(`${indent}https://github.com/NegoZiatoR/ai-commit/issues/new/choose`);
     }
 };

@@ -64,12 +64,12 @@ Publish your current branch to a `npm/*` branch on your GitHub repository:
 $ pnpm dlx git-publish
 
 ✔ Successfully published branch! Install with command:
-  → npm i 'NegoZiatoR/aicommit#npm/develop'
+  → npm i 'NegoZiatoR/ai-commit#npm/develop'
 ```
 
-> Note: The `NegoZiatoR/aicommit` will be replaced with your fork's URL.
+> Note: The `NegoZiatoR/ai-commit` will be replaced with your fork's URL.
 
 Now, you can run the branch in your project:
 ```sh
-$ pnpm dlx 'NegoZiatoR/aicommit#npm/develop' # same as running `npx aicommit`
+$ pnpm dlx 'NegoZiatoR/ai-commit#npm/develop' # same as running `npx aicommit`
 ```
