@@ -257,7 +257,7 @@ export default testSuite(({ describe }) => {
                 committing.stdout!.on('data', (buffer: Buffer) => {
                     const stdout = buffer.toString();
                     if (stdout.match('└')) {
-                        committing.stdin!.write('y', () => {});
+                        committing.stdin!.write('y', () => ({}));
                         committing.stdin!.end();
                     }
                 });
