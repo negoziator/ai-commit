@@ -76,7 +76,7 @@
 	},
 	"release": {
 		"branches": [
-			"main"
+			"master"
 		]
 	},
 	"pnpm": {
