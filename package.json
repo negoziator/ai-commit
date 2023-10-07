@@ -62,7 +62,7 @@
 		"rules": {
 			"indent": ["error", 4],
 			"no-empty-function": "off",
-			"@typescript-eslint/no-empty-function": "error",
+			"@typescript-eslint/no-empty-function": "off",
 			"unicorn/no-process-exit": "off",
 			"unicorn/expiring-todo-comments": "off"
 		},
