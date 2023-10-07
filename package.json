@@ -61,6 +61,7 @@
 		"extends": "@pvtnbr",
 		"rules": {
 			"indent": ["error", 4],
+			"no-empty-function": "off",
 			"unicorn/no-process-exit": "off",
 			"unicorn/expiring-todo-comments": "off"
 		},
