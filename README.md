@@ -258,8 +258,7 @@ Video coming soon where I rebuild it from scratch to show you how to easily buil
 
 ## Maintainers
 
-- **Lars Schou
-  **: [@NegoZiatoR](https://github.com/NegoZiatoR) [<img src="https://img.shields.io/twitter/follow/negoziator?style=flat&label=negoziator&logo=twitter&color=0bf&logoColor=fff" align="center">](https://twitter.com/negoziator)
+- **Lars Schou**: [@NegoZiatoR](https://github.com/NegoZiatoR) [<img src="https://img.shields.io/twitter/follow/negoziator?style=flat&label=negoziator&logo=twitter&color=0bf&logoColor=fff" align="center">](https://twitter.com/negoziator)
 
 ## Contributing
 
