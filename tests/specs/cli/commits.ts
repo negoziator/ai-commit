@@ -254,6 +254,7 @@ export default testSuite(({ describe }) => {
                     if (stdout.match('└')) {
                         /* tslint:disable:no-empty */
                         committing.stdin!.write('y', () => ({}));
+                        committing.stdin!.end();
                     }
                 });
 
@@ -288,6 +289,7 @@ export default testSuite(({ describe }) => {
                     const stdout = buffer.toString();
                     if (stdout.match('└')) {
                         committing.stdin!.write('y', () => ({}));
+                        committing.stdin!.end();
                     }
                 });
 
@@ -321,6 +323,7 @@ export default testSuite(({ describe }) => {
                     const stdout = buffer.toString();
                     if (stdout.match('└')) {
                         committing.stdin!.write('y', () => ({}));
+                        committing.stdin!.end();
                     }
                 });
 
