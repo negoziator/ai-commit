@@ -19,7 +19,7 @@ jobs:
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
         with:
-          node-version: 14
+          node-version: 18
       - run: npm install --no-audit --ignore-scripts
       - run: npm test
       - run: npm type-check
