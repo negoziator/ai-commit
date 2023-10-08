@@ -26,7 +26,7 @@
 		"lint": "npx eslint --no-cache .",
 		"type-check": "tsc",
 		"test": "tsx tests",
-		"prepack": "npm build && clean-pkg-json"
+		"prepack": "npm run build && clean-pkg-json"
 	},
 	"dependencies": {
 		"@dqbd/tiktoken": "^1.0.2"
