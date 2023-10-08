@@ -13,16 +13,16 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
-  steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      env:
-        OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
-      with:
-        node-version: 14
-    - run: npm install --no-audit --ignore-scripts
-    - run: npm test
-    - run: npm type-check
-    - run: npm lint
-    - run: npm build
-    - run: npm test
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+        with:
+          node-version: 14
+      - run: npm install --no-audit --ignore-scripts
+      - run: npm test
+      - run: npm type-check
+      - run: npm lint
+      - run: npm build
+      - run: npm test
