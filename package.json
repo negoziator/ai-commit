@@ -40,7 +40,7 @@
 	},
 	"devDependencies": {
 		"@clack/prompts": "^0.7.0",
-		"@pvtnbr/eslint-config": "^0.33.0",
+		"@pvtnbr/eslint-config": "^0.37.0",
 		"@types/ini": "^1.3.31",
 		"@types/inquirer": "^9.0.3",
 		"@types/node": "^18.14.2",
