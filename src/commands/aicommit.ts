@@ -79,6 +79,7 @@ export default async (
         let confirmed: boolean | symbol;
         if (config['auto-confirm']) {
             confirmed = true;
+            outro(`${green('✔')} Auto confirmed commit message.\n\n   ${message}\n`);
         } else {
             confirmed = await confirm({
                 message: `Use this commit message?\n\n   ${message}\n`,
