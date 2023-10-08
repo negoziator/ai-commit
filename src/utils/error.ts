@@ -5,7 +5,7 @@ export class KnownError extends Error {}
 
 const indent = '    ';
 
-export const handleCliError = (error: any) => {
+export const handleCliError = (error: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
     if (
         error instanceof Error
         && !(error instanceof KnownError)

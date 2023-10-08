@@ -15,7 +15,7 @@ export const hasOwn = (object: unknown, key: PropertyKey) => hasOwnProperty.call
 
 const parseAssert = (
     name: string,
-    condition: any,
+    condition: any, // eslint-disable-line @typescript-eslint/no-explicit-any
     message: string,
 ) => {
     if (!condition) {
@@ -154,7 +154,7 @@ export const getConfig = async (
         if (suppressErrors) {
             try {
                 parsedConfig[key] = parser(value);
-            } catch {}
+            } catch {} // eslint-disable-line no-empty
         } else {
             parsedConfig[key] = parser(value);
         }
@@ -174,7 +174,7 @@ export const setConfigs = async (
         }
 
         const parsed = configParsers[key as ConfigKeys](value);
-        config[key as ConfigKeys] = parsed as any;
+        config[key as ConfigKeys] = parsed as any; // eslint-disable-line @typescript-eslint/no-explicit-any
     }
 
     await fs.writeFile(configPath, ini.stringify(config), 'utf8');

@@ -1,13 +1,13 @@
 import https from 'https';
-import type { ClientRequest, IncomingMessage } from 'http';
-import type { CreateChatCompletionRequest, CreateChatCompletionResponse } from 'openai';
+import { ClientRequest, IncomingMessage } from 'http';
+import { CreateChatCompletionRequest, CreateChatCompletionResponse } from 'openai';
 import {
-    type TiktokenModel,
+    TiktokenModel,
     // encoding_for_model,
 } from '@dqbd/tiktoken';
 import createHttpsProxyAgent from 'https-proxy-agent';
 import { KnownError } from './error.js';
-import type { CommitType } from './config.js';
+import { CommitType } from './config.js';
 import { generatePrompt } from './prompt.js';
 
 const httpsPost = async (
@@ -161,10 +161,10 @@ export const generateCommitMessage = async (
         return deduplicateMessages(
             completion.choices
                 .filter(choice => choice.message?.content)
-                .map(choice => sanitizeMessage(choice.message!.content)),
+                .map(choice => sanitizeMessage(choice.message!.content as string)),
         );
     } catch (error) {
-        const errorAsAny = error as any;
+        const errorAsAny = error as any; // eslint-disable-line @typescript-eslint/no-explicit-any
         if (errorAsAny.code === 'ENOTFOUND') {
             throw new KnownError(`Error connecting to ${errorAsAny.hostname} (${errorAsAny.syscall}). Are you connected to the internet?`);
         }
