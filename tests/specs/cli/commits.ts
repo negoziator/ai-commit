@@ -41,6 +41,7 @@ export default testSuite(({ describe }) => {
                 const stdout = buffer.toString();
                 if (stdout.match('└')) {
                     committing.stdin!.write('y');
+                    committing.stdin!.end();
                 }
             });
 
@@ -74,6 +75,7 @@ export default testSuite(({ describe }) => {
                 const stdout = buffer.toString();
                 if (stdout.match('└')) {
                     committing.stdin!.write('y', () => ({}));
+                    committing.stdin!.end();
                 }
             });
 
@@ -107,6 +109,7 @@ export default testSuite(({ describe }) => {
                 const stdout = buffer.toString();
                 if (stdout.match('└')) {
                     committing.stdin!.write('y', () => ({}));
+                    committing.stdin!.end();
                 }
             });
 
@@ -145,6 +148,7 @@ export default testSuite(({ describe }) => {
                 if (stdout.match('└')) {
                     committing.stdin!.write('\r');
                     committing.stdout?.off('data', onPrompt);
+                    committing.stdin!.end();
                 }
             });
 
@@ -186,6 +190,7 @@ export default testSuite(({ describe }) => {
                 const stdout = buffer.toString();
                 if (stdout.match('└')) {
                     committing.stdin!.write('y', () => ({}));
+                    committing.stdin!.end();
                 }
             });
 
