@@ -7,7 +7,7 @@
 </div>
 
 ---
-_Originated from [Nutlope/aicommits](https://github.com/Nutlope/aicommits_)_ which is no longer maintained.
+_Originated from [Nutlope/aicommits](https://github.com/Nutlope/aicommits)_ which is no longer maintained.
 
 ## Setup
 
@@ -16,7 +16,7 @@ _Originated from [Nutlope/aicommits](https://github.com/Nutlope/aicommits_)_ whi
 1. Install _ai-commit_:
 
     ```sh
-    npm install -g @negozitor/ai-commit
+    npm install -g @negoziator/ai-commit
     ```
 
 2. Retrieve your API key from [OpenAI](https://platform.openai.com/account/api-keys)
