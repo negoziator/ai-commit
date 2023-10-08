@@ -1,14 +1,11 @@
 <div align="center">
-  <div>
-    <h1 align="center">AI Commit</h1>
-  </div>
-	<p>A CLI that writes your git commit messages for you with AI. Never write a commit message again.</p>
-	<a href="https://www.npmjs.com/package/@negoziator/ai-commit"><img src="https://img.shields.io/npm/v/@negoziator/ai-commit" alt="Current version"></a>
+    <h1>🤖 AI-Commit 🤖 </h1>
+    <p>Your coding companion, ensures that every commit you make is meaningful, insightful, and contributing positively towards your development workflow.</p>
+    <a href="https://www.npmjs.com/package/@negoziator/ai-commit"><img src="https://img.shields.io/npm/v/@negoziator/ai-commit" alt="Current version"></a>
 </div>
 
 ---
-_Originated from [Nutlope/aicommits](https://github.com/Nutlope/aicommits)_ which is no longer maintained.
-
+<small>_Originated from [Nutlope/aicommits](https://github.com/Nutlope/aicommits)_ which is no longer maintained.</small>
 ## Setup
 
 > The minimum supported version of Node.js is the latest v14. Check your Node.js version with `node --version`.
@@ -36,7 +33,7 @@ _Originated from [Nutlope/aicommits](https://github.com/Nutlope/aicommits)_ whic
 Check the installed version with:
 
 ```
-aicommit --version
+aicommit --versiong
 ```
 
 If it's not the [latest version](https://github.com/negoziator/aicommit/releases/latest), run:
@@ -261,7 +258,8 @@ Video coming soon where I rebuild it from scratch to show you how to easily buil
 
 ## Maintainers
 
-- **Lars Schou**: [@NegoZiatoR](https://github.com/NegoZiatoR) [<img src="https://img.shields.io/twitter/follow/negoziator?style=flat&label=negoziator&logo=twitter&color=0bf&logoColor=fff" align="center">](https://twitter.com/negoziator)
+- **Lars Schou
+  **: [@NegoZiatoR](https://github.com/NegoZiatoR) [<img src="https://img.shields.io/twitter/follow/negoziator?style=flat&label=negoziator&logo=twitter&color=0bf&logoColor=fff" align="center">](https://twitter.com/negoziator)
 
 ## Contributing
 
