@@ -7,6 +7,7 @@
 </div>
 
 ---
+_Originated from [Nutlope/aicommits](https://github.com/Nutlope/aicommits_)_ which is no longer maintained.
 
 ## Setup
 
@@ -41,7 +42,7 @@ aicommit --version
 If it's not the [latest version](https://github.com/negoziator/aicommit/releases/latest), run:
 
 ```sh
-npm update -g @negozitor/ai-commit
+npm update -g @negoziator/ai-commit
 ```
 
 ## Usage
@@ -260,8 +261,7 @@ Video coming soon where I rebuild it from scratch to show you how to easily buil
 
 ## Maintainers
 
-- **Lars Schou
-  **: [@NegoZiatoR](https://github.com/NegoZiatoR) [<img src="https://img.shields.io/twitter/follow/negoziator?style=flat&label=negoziator&logo=twitter&color=0bf&logoColor=fff" align="center">](https://twitter.com/negoziator)
+- **Lars Schou**: [@NegoZiatoR](https://github.com/NegoZiatoR) [<img src="https://img.shields.io/twitter/follow/negoziator?style=flat&label=negoziator&logo=twitter&color=0bf&logoColor=fff" align="center">](https://twitter.com/negoziator)
 
 ## Contributing
 
