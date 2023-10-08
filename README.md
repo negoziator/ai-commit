@@ -1,7 +1,6 @@
 <div align="center">
   <div>
-    <img src=".github/screenshot.png" alt="AI Commits"/>
-    <h1 align="center">AI Commits</h1>
+    <h1 align="center">AI Commit</h1>
   </div>
 	<p>A CLI that writes your git commit messages for you with AI. Never write a commit message again.</p>
 	<a href="https://www.npmjs.com/package/@negoziator/ai-commit"><img src="https://img.shields.io/npm/v/@negoziator/ai-commit" alt="Current version"></a>
@@ -13,10 +12,10 @@
 
 > The minimum supported version of Node.js is the latest v14. Check your Node.js version with `node --version`.
 
-1. Install _aicommit_:
+1. Install _ai-commit_:
 
     ```sh
-    npm install -g aicommit
+    npm install -g @negozitor/ai-commit
     ```
 
 2. Retrieve your API key from [OpenAI](https://platform.openai.com/account/api-keys)
@@ -39,10 +38,10 @@ Check the installed version with:
 aicommit --version
 ```
 
-If it's not the [latest version](https://github.com/Nutlope/aicommit/releases/latest), run:
+If it's not the [latest version](https://github.com/negoziator/aicommit/releases/latest), run:
 
 ```sh
-npm update -g aicommit
+npm update -g @negozitor/ai-commit
 ```
 
 ## Usage
@@ -194,16 +193,6 @@ Default: `1`
 The number of commit messages to generate to pick from.
 
 Note, this will use more tokens as it generates more results.
-
-#### proxy
-
-Set a HTTP/HTTPS proxy to use for requests.
-
-To clear the proxy option, you can use the command (note the empty value after the equals sign):
-
-```sh
-aicommit config set proxy=
-```
 
 #### model
 
