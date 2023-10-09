@@ -33,7 +33,7 @@
 Check the installed version with:
 
 ```
-aicommit --versiong
+aicommit --version
 ```
 
 If it's not the [latest version](https://github.com/negoziator/aicommit/releases/latest), run:
