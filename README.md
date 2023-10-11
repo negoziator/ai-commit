@@ -249,6 +249,20 @@ Automatically confirm the generated commit message without prompting the user.
 aicommit config set auto-confirm=true
 ```
 
+#### prepend-reference
+
+Default: `false`
+
+Prepends issue reference from branch name to commit message.
+
+branch name: `feature/abc-123-branch-name`
+
+commit message: `ABC-123: <generated commit message>`
+
+```sh
+aicommit config set prepend-reference=true
+```
+
 ## How it works
 
 This CLI tool runs `git diff` to grab all your latest code changes, sends them to OpenAI's GPT-3, then returns the AI
