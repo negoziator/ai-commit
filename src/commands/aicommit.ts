@@ -104,6 +104,19 @@ export default async (
         message = selected as string;
     }
 
+    if (config['prepend-reference']) {
+        // Get the current branch name
+        const { stdout} = await execa('git', ['branch', '--show-current']);
+
+        // Get reference from branch name
+        const taskNumber = stdout.match(/([a-zA-Z])+-([0-9]+)/)?.[0];
+
+        if (taskNumber?.length) {
+            // Prepend reference to commit message
+            message = `${taskNumber?.toUpperCase()}: ${message}`;
+        }
+    }
+
     await execa('git', ['commit', '-m', message, ...rawArgv]);
 
     outro(`${green('✔')} Successfully committed!`);

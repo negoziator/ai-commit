@@ -116,6 +116,18 @@ const configParsers = {
         parseAssert('auto-confirm', /^(?:true|false)$/.test(autoConfirm), 'Must be a boolean');
         return autoConfirm === 'true';
     },
+    'prepend-reference'(prependReference?: string | boolean) {
+        if (!prependReference) {
+            return false;
+        }
+
+        if (typeof prependReference === 'boolean') {
+            return prependReference;
+        }
+
+        parseAssert('prepend-reference', /^(?:true|false)$/.test(prependReference), 'Must be a boolean');
+        return prependReference === 'true';
+    },
 } as const;
 
 type ConfigKeys = keyof typeof configParsers;

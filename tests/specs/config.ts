@@ -125,6 +125,30 @@ export default testSuite(({ describe }) => {
       })
     })
 
+    await describe('prepend-reference', ({ test }) => {
+      test('must be a boolean', async () => {
+          const { stderr } = await aicommit(['config', 'set', 'prepend-reference=abc'], {
+              reject: false
+          })
+
+          expect(stderr).toMatch('Must be a boolean')
+      })
+
+      test('updates config', async () => {
+          const defaultConfig = await aicommit(['config', 'get', 'prepend-reference'])
+          expect(defaultConfig.stdout).toBe('prepend-reference=false')
+
+          const autoConfirm = 'prepend-reference=true'
+          await aicommit(['config', 'set', autoConfirm])
+
+          const configFile = await fs.readFile(configPath, 'utf8')
+          expect(configFile).toMatch(autoConfirm)
+
+          const get = await aicommit(['config', 'get', 'prepend-reference'])
+          expect(get.stdout).toBe(autoConfirm)
+      })
+    })
+
     await test('set config file', async () => {
       await aicommit(['config', 'set', openAiToken])
 

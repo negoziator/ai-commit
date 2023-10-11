@@ -60,6 +60,68 @@ export default testSuite(({ describe }) => {
             await fixture.rm();
         });
 
+        test('Generates commit message with prepended reference from branch name', async () => {
+
+            const { fixture, aicommit } = await createFixture(files);
+            const git = await createGit(fixture.path);
+
+            await git('checkout', ['-b', 'feature/abc-123-some-feature']);
+            await git('add', ['data.json']);
+
+            const autoConfirm = 'prepend-reference=true'
+            await aicommit(['config', 'set', autoConfirm])
+
+            const committing = aicommit();
+            committing.stdout!.on('data', (buffer: Buffer) => {
+                const stdout = buffer.toString();
+                if (stdout.match('└')) {
+                    committing.stdin!.write('y');
+                    committing.stdin!.end();
+                }
+            });
+
+            await committing;
+
+            const { stdout: commitMessage } = await git('log', ['--pretty=format:%s']);
+            console.log({
+                commitMessage,
+                length: commitMessage.length,
+            });
+            expect(commitMessage.startsWith('ABC-123: ')).toBe(true);
+            await fixture.rm();
+        });
+
+        test('Generates commit message will no prepend if no valid reference', async () => {
+
+            const { fixture, aicommit } = await createFixture(files);
+            const git = await createGit(fixture.path);
+
+            await git('checkout', ['-b', 'feature/some-feature']);
+            await git('add', ['data.json']);
+
+            const autoConfirm = 'prepend-reference=true'
+            await aicommit(['config', 'set', autoConfirm])
+
+            const committing = aicommit();
+            committing.stdout!.on('data', (buffer: Buffer) => {
+                const stdout = buffer.toString();
+                if (stdout.match('└')) {
+                    committing.stdin!.write('y');
+                    committing.stdin!.end();
+                }
+            });
+
+            await committing;
+
+            const { stdout: commitMessage } = await git('log', ['--pretty=format:%s']);
+            console.log({
+                commitMessage,
+                length: commitMessage.length,
+            });
+            expect(commitMessage.length).toBeLessThanOrEqual(50);
+            await fixture.rm();
+        });
+
         test('Generated commit message must be under 50 characters', async () => {
             const { fixture, aicommit } = await createFixture({
                 ...files,
