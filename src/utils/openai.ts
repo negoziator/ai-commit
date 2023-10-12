@@ -131,6 +131,7 @@ export const generateCommitMessage = async (
     maxLength: number,
     type: CommitType,
     timeout: number,
+    temperature: number,
 ) => {
     try {
         const completion = await createChatCompletion(
@@ -147,7 +148,7 @@ export const generateCommitMessage = async (
                         content: diff,
                     },
                 ],
-                temperature: 0.2,
+                temperature: temperature,
                 top_p: 1,
                 frequency_penalty: 0,
                 presence_penalty: 0,
