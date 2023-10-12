@@ -5,7 +5,6 @@
 </div>
 
 ---
-<small>_Originated from [Nutlope/aicommits](https://github.com/Nutlope/aicommits)_ which is no longer maintained.</small>
 ## Setup
 
 > The minimum supported version of Node.js is the latest v14. Check your Node.js version with `node --version`.
