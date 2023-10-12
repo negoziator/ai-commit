@@ -77,17 +77,18 @@ aicommit config set <key>=<value>
 
 ### Options
 
-| Option              | Default        | Description                                                             |
-|---------------------|----------------|-------------------------------------------------------------------------|
-| `OPENAI_KEY`        | N/A            | The OpenAI API key.                                                     |
-| `locale`            | `en`           | Locale for the generated commit messages.                               |
-| `generate`          | `1`            | Number of commit messages to generate.                                  |
-| `model`             | `gpt-3.5-turbo`| The Chat Completions model to use.                                      |
-| `timeout`           | `10000` ms     | Network request timeout to the OpenAI API.                              |
-| `max-length`        | `50`           | Maximum character length of the generated commit message.               |
-| `type`              | `""`           | Type of commit message to generate.                                     |
-| `auto-confirm`      | `false`        | Automatically confirm the generated commit message without user prompt. |
-| `prepend-reference` | `false`        | Prepend issue reference from branch name to commit message.             |
+| Option              | Default         | Description                                                                           |
+|---------------------|-----------------|---------------------------------------------------------------------------------------|
+| `OPENAI_KEY`        | N/A             | The OpenAI API key.                                                                   |
+| `locale`            | `en`            | Locale for the generated commit messages.                                             |
+| `generate`          | `1`             | Number of commit messages to generate.                                                |
+| `model`             | `gpt-3.5-turbo` | The Chat Completions model to use.                                                    |
+| `timeout`           | `10000` ms      | Network request timeout to the OpenAI API.                                            |
+| `max-length`        | `50`            | Maximum character length of the generated commit message.                             |
+| `type`              | `""`            | Type of commit message to generate.                                                   |
+| `auto-confirm`      | `false`         | Automatically confirm the generated commit message without user prompt.               |
+| `prepend-reference` | `false`         | Prepend issue reference from branch name to commit message.                           |
+| `temperature`       | `0.2`           | The temperature (0.0-2.0) is used to control the randomness of the output from OpenAI |
 
 ## Maintainers
 - **Lars Schou**: <img src="https://img.shields.io/twitter/follow/negoziator?style=flat&label=negoziator&logo=twitter&color=0bf&logoColor=fff" align="center">

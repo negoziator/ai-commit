@@ -48,6 +48,7 @@ export default () => (async () => {
             config['max-length'],
             config.type,
             config.timeout,
+            config.temperature,
         );
     } finally {
         s.stop('Changes analyzed');

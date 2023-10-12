@@ -101,6 +101,30 @@ export default testSuite(({ describe }) => {
       })
     })
 
+    await describe('temperature', ({ test }) => {
+      test('must be a decimal', async () => {
+          const { stderr } = await aicommit(['config', 'set', 'temperature=abc'], {
+              reject: false
+          })
+
+          expect(stderr).toMatch('Must be decimal between 0 and 2')
+      })
+
+      test('updates config', async () => {
+          const defaultConfig = await aicommit(['config', 'get', 'temperature'])
+          expect(defaultConfig.stdout).toBe('temperature=0.2')
+
+          const temperature = 'temperature=0.7'
+          await aicommit(['config', 'set', temperature])
+
+          const configFile = await fs.readFile(configPath, 'utf8')
+          expect(configFile).toMatch(temperature)
+
+          const get = await aicommit(['config', 'get', 'temperature'])
+          expect(get.stdout).toBe(temperature)
+      })
+    })
+
     await describe('auto-confirm', ({ test }) => {
       test('must be a boolean', async () => {
         const { stderr } = await aicommit(['config', 'set', 'auto-confirm=abc'], {
