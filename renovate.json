@@ -15,10 +15,9 @@
             "groupName": "all patch dependencies",
             "groupSlug": "update-patch-dependencies",
             "enabled": true,
-            "automerge": false
+            "automerge": true
         },
         {
-            "matchDatasources": ["npm"],
             "packagePatterns": ["*"],
             "updateTypes": ["minor"],
             "groupName": "all minor dependencies",
