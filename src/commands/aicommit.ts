@@ -13,6 +13,7 @@ import {
 import { getConfig } from '../utils/config.js';
 import { generateCommitMessage } from '../utils/openai.js';
 import { KnownError, handleCliError } from '../utils/error.js';
+import generateMessage from "../utils/generate-message.js";
 
 export default async (
     generate: number | undefined,
@@ -50,72 +51,53 @@ export default async (
         type: commitType?.toString(),
     });
 
-    const s = spinner();
-    s.start('The AI is analyzing your changes');
-    let messages: string[];
-    try {
-        messages = await generateCommitMessage(
-            config.OPENAI_KEY,
-            config.model,
-            config.locale,
-            staged.diff,
-            config.generate,
-            config['max-length'],
-            config.type,
-            config.timeout,
-            config.temperature,
-        );
-    } finally {
-        s.stop('Changes analyzed');
+    let message = await generateMessage(config, staged);
+
+    if (!message) {
+        return;
     }
 
-    if (messages.length === 0) {
-        throw new KnownError('No commit messages were generated. Try again.');
-    }
-
-    let message: string;
-    if (messages.length === 1) {
-        [message] = messages;
-
-        let confirmed: boolean | symbol;
-        if (config['auto-confirm']) {
-            confirmed = true;
-            outro(`${green('✔')} Auto confirmed commit message.\n\n   ${message}\n`);
-        } else {
-            confirmed = await confirm({
-                message: `Use this commit message?\n\n   ${message}\n`,
-            });
-        }
-
-        if (!confirmed || isCancel(confirmed)) {
-            outro('Commit cancelled');
-            return;
-        }
+    let confirmed: boolean = false;
+    if (config['auto-confirm']) {
+        confirmed = true;
+        outro(`${green('✔')} Auto confirmed commit message.\n\n   ${message}\n`);
     } else {
-        const selected = await select({
-            message: `Pick a commit message to use: ${dim('(Ctrl+c to exit)')}`,
-            options: messages.map(value => ({ label: value, value })),
-        });
 
-        if (isCancel(selected)) {
-            outro('Commit cancelled');
-            return;
+        while (!confirmed) {
+
+            if (message === undefined) {
+                message = await generateMessage(config, staged);
+            }
+
+            let choice: string;
+            const selected = await select({
+                message: `Use this commit message?\n\n   ${message}\n`,
+                options:  [ { label: "Yes", value: "Yes" }, { label: "No", value: "No" }, { label: "Retry", value: "Retry" } ]
+            });
+
+            choice = selected as string;
+
+            if (choice === "Yes") {
+                confirmed = true;
+            }
+
+            if (choice === "No") {
+                break;
+            }
+
+            message = undefined;
         }
 
-        message = selected as string;
     }
 
-    if (config['prepend-reference']) {
-        // Get the current branch name
-        const { stdout} = await execa('git', ['branch', '--show-current']);
+    if (!message) {
+        outro('No message generated. Commit cancelled');
+        return;
+    }
 
-        // Get reference from branch name
-        const taskNumber = stdout.match(/([a-zA-Z])+-([0-9]+)/)?.[0];
-
-        if (taskNumber?.length) {
-            // Prepend reference to commit message
-            message = `${taskNumber?.toUpperCase()}: ${message}`;
-        }
+    if (!confirmed || isCancel(confirmed)) {
+        outro('Commit cancelled');
+        return;
     }
 
     await execa('git', ['commit', '-m', message, ...rawArgv]);
