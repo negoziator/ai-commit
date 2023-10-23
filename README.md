@@ -1,5 +1,6 @@
 <div align="center">
     <h1>🤖 AI-Commit 🤖</h1>
+    <img src="./.github/screenshot.png" alt="License" width="1000" height="300">
     <p>Your coding companion, ensures that every commit you make is meaningful, insightful, and contributing positively towards your development workflow.</p>
     <a href="https://www.npmjs.com/package/@negoziator/ai-commit"><img src="https://img.shields.io/npm/v/@negoziator/ai-commit" alt="Current version"></a>
 </div>
