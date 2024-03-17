@@ -5,9 +5,13 @@
         "config:base",
         ":disableRateLimiting",
         "docker:disable",
-        ":semanticCommitTypeAll(fix)"
+        ":semanticCommitTypeAll(chore)"
     ],
     "rangeStrategy": "update-lockfile",
+    "dependencyDashboard": true,
+    "major": {
+        "dependencyDashboardApproval": true
+    },
     "packageRules": [
         {
             "packagePatterns": ["*"],
@@ -23,12 +27,13 @@
             "groupName": "all minor dependencies",
             "groupSlug": "update-minor-dependencies",
             "enabled": true,
-            "automerge": false
+            "automerge": true
         },
         {
             "packagePatterns": ["*"],
             "updateTypes": ["major"],
-            "enabled": false
+            "enabled": true,
+            "automerge": false
         },
         {
             "packageNames": ["node"],
