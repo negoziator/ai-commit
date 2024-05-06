@@ -1,6 +1,6 @@
 import https from 'https';
 import { ClientRequest, IncomingMessage } from 'http';
-import { CreateChatCompletionRequest, CreateChatCompletionResponse } from 'openai';
+import OpenAI from 'openai';
 import {
     TiktokenModel,
     // encoding_for_model,
@@ -65,7 +65,7 @@ const httpsPost = async (
 
 const createChatCompletion = async (
     apiKey: string,
-    json: CreateChatCompletionRequest,
+    json: OpenAI.Chat.ChatCompletionCreateParamsNonStreaming,
     timeout: number,
     proxy?: string,
 ) => {
@@ -98,7 +98,7 @@ const createChatCompletion = async (
         throw new KnownError(errorMessage);
     }
 
-    return JSON.parse(data) as CreateChatCompletionResponse;
+    return JSON.parse(data) as OpenAI.Chat.Completions.ChatCompletion;
 };
 
 const sanitizeMessage = (message: string) => message.trim().replace(/[\n\r]/g, '').replace(/(\w)\.$/, '$1');
