@@ -19,7 +19,7 @@
 - [Contributing](#contributing)
 
 ## Setup
-> A minimum of Node v18 is required. Check your Node.js version with `node --version`.
+> A minimum of Node v20 is required. Check your Node.js version with `node --version`.
 
 ### Installation
 1. **Install AI-Commit:**
