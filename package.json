@@ -46,7 +46,7 @@
 		"https-proxy-agent": "^5.0.1",
 		"ini": "^3.0.1",
 		"kolorist": "^1.7.0",
-		"manten": "^0.7.0",
+		"manten": "^1.0.0",
 		"openai": "^3.2.1",
 		"pkgroll": "^1.9.0",
 		"simple-git-hooks": "^2.8.1",
