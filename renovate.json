@@ -5,7 +5,7 @@
         "config:base",
         ":disableRateLimiting",
         "docker:disable",
-        ":semanticCommitTypeAll(chore)"
+        ":semanticCommitTypeAll(fix)"
     ],
     "rangeStrategy": "update-lockfile",
     "dependencyDashboard": true,
