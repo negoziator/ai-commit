@@ -92,7 +92,7 @@ aicommit config set <key>=<value>
 | `temperature`       | `0.2`           | The temperature (0.0-2.0) is used to control the randomness of the output from OpenAI |
 
 ## Maintainers
-- **Lars Schou**: <img src="https://img.shields.io/twitter/follow/negoziator?style=flat&label=negoziator&logo=twitter&color=0bf&logoColor=fff" align="center">
+[![NegoZiatoR](https://img.shields.io/badge/NegoZiatoR-blue?style=flat&logo=x&link=https://twitter.com/negoziator)](https://twitter.com/negoziator)
 
 ## Contributing
 If you want to help fix a bug or implement a feature in [Issues](https://github.com/negoziator/ai-commit/issues), checkout
