@@ -1,10 +1,6 @@
 import https from 'https';
 import { ClientRequest, IncomingMessage } from 'http';
 import OpenAI from 'openai';
-import {
-    TiktokenModel,
-    // encoding_for_model,
-} from '@dqbd/tiktoken';
 import createHttpsProxyAgent from 'https-proxy-agent';
 import { KnownError } from './error.js';
 import { CommitType } from './config.js';
@@ -124,7 +120,7 @@ const deduplicateMessages = (array: string[]) => Array.from(new Set(array));
 
 export const generateCommitMessage = async (
     apiKey: string,
-    model: TiktokenModel,
+    model: string,
     locale: string,
     diff: string,
     completions: number,
