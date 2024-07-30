@@ -83,7 +83,7 @@ aicommit config set <key>=<value>
 | `OPENAI_KEY`        | N/A             | The OpenAI API key.                                                                   |
 | `locale`            | `en`            | Locale for the generated commit messages.                                             |
 | `generate`          | `1`             | Number of commit messages to generate.                                                |
-| `model`             | `gpt-3.5-turbo` | The Chat Completions model to use.                                                    |
+| `model`             | `gpt-4o-mini`   | The Chat Completions model to use.                                                    |
 | `timeout`           | `10000` ms      | Network request timeout to the OpenAI API.                                            |
 | `max-length`        | `50`            | Maximum character length of the generated commit message.                             |
 | `type`              | `""`            | Type of commit message to generate.                                                   |
