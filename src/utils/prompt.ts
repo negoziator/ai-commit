@@ -43,6 +43,7 @@ export const generatePrompt = (
     `Message language: ${locale}`,
     `Commit message must be a maximum of ${maxLength} characters.`,
     'Exclude anything unnecessary such as translation. Your entire response will be passed directly into git commit.',
+    'Try to focus on the code changes (and why) and not the context of the changes.',
     commitTypes[type],
     specifyCommitFormat(type),
 ].filter(Boolean).join('\n');
