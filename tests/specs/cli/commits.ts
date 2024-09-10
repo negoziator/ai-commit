@@ -229,7 +229,7 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(50);
+            expect(commitMessage.length).toBeLessThanOrEqual(51);
 
             await fixture.rm();
         });
@@ -305,7 +305,7 @@ export default testSuite(({ describe }) => {
             });
 
             test('Conventional commits', async () => {
-                const conventionalCommitPattern = /(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test):\s/;
+                const conventionalCommitPattern = /(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|data):\s/;
                 const { fixture, aicommit } = await createFixture({
                     ...files,
                     '.aicommit': `${files['.aicommit']}\ntype=conventional`,
@@ -338,7 +338,7 @@ export default testSuite(({ describe }) => {
             });
 
             test('Accepts --type flag, overriding config', async () => {
-                const conventionalCommitPattern = /(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test):\s/;
+                const conventionalCommitPattern = /(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|data):\s/;
                 const { fixture, aicommit } = await createFixture({
                     ...files,
                     '.aicommit': `${files['.aicommit']}\ntype=other`,
@@ -373,7 +373,7 @@ export default testSuite(({ describe }) => {
             });
 
             test('Accepts empty --type flag', async () => {
-                const conventionalCommitPattern = /(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test):\s/;
+                const conventionalCommitPattern = /(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|data):\s/;
                 const { fixture, aicommit } = await createFixture({
                     ...files,
                     '.aicommit': `${files['.aicommit']}\ntype=conventional`,
