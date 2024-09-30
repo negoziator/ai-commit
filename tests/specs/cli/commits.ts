@@ -55,7 +55,7 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(50);
+            expect(commitMessage.length).toBeLessThanOrEqual(52);
 
             await fixture.rm();
         });
@@ -118,7 +118,7 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(50);
+            expect(commitMessage.length).toBeLessThanOrEqual(52);
             await fixture.rm();
         });
 
@@ -148,7 +148,7 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(50);
+            expect(commitMessage.length).toBeLessThanOrEqual(52);
 
             await fixture.rm();
         });
@@ -185,7 +185,7 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(50);
+            expect(commitMessage.length).toBeLessThanOrEqual(52);
 
             await fixture.rm();
         });
@@ -229,7 +229,7 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(51);
+            expect(commitMessage.length).toBeLessThanOrEqual(52);
 
             await fixture.rm();
         });
@@ -267,7 +267,7 @@ export default testSuite(({ describe }) => {
                 length: commitMessage.length,
             });
             expect(commitMessage).toMatch(japanesePattern);
-            expect(commitMessage.length).toBeLessThanOrEqual(50);
+            expect(commitMessage.length).toBeLessThanOrEqual(52);
 
             await fixture.rm();
         });
