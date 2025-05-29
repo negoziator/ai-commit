@@ -176,7 +176,12 @@ export const getConfig = async (
     for (const key of Object.keys(configParsers) as ConfigKeys[]) {
         const parser = configParsers[key];
         // Project config takes precedence over global config and CLI config
-        const value = projectConfig?.[key] ?? cliConfig?.[key] ?? config[key];
+        let value = projectConfig?.[key] ?? cliConfig?.[key] ?? config[key];
+
+        // Ensure the value is coerced to a string if it's a boolean
+        if (typeof value === 'boolean') {
+            value = value.toString();
+        }
 
         if (suppressErrors) {
             try {
