@@ -13,15 +13,8 @@
     "major": {
         "dependencyDashboardApproval": true,
         "automerge": false,
-        "commitMessageAction": "feat(deps)",
-        "commitMessageTopic": "{{depName}}",
-        "commitMessagePrefix": "feat(deps): ",
-        "commitBody": "This is an automated update of the {{depName}} dependency to version {{newVersion}}.",
-        "prBody": "This is an automated update of the {{depName}} dependency to version {{newVersion}}.\n\n{{{changelog}}}",
-        "prBodyNotes": [
-            "This is an automated update of the {{depName}} dependency to version {{newVersion}}.",
-            "{{{changelog}}}"
-        ]
+        "commitMessageTopic": "feat(deps): Update {{depName}} to {{newVersion}}",
+        "prBody": "This is an automated update of the {{depName}} dependency to version {{newVersion}}.\n\n{{{changelog}}}"
     },
     "packageRules": [
         {
