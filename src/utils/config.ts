@@ -4,6 +4,7 @@ import os from 'os';
 import ini from 'ini';
 import { fileExists } from './fs.js';
 import { KnownError } from './error.js';
+import { getProjectConfig } from './project-config.js';
 
 const commitTypes = ['', 'conventional'] as const;
 
@@ -169,11 +170,18 @@ export const getConfig = async (
     suppressErrors?: boolean,
 ): Promise<ValidConfig> => {
     const config = await readConfigFile();
+    const projectConfig = await getProjectConfig();
     const parsedConfig: Record<string, unknown> = {};
 
     for (const key of Object.keys(configParsers) as ConfigKeys[]) {
         const parser = configParsers[key];
-        const value = cliConfig?.[key] ?? config[key];
+        // Project config takes precedence over global config and CLI config
+        let value = projectConfig?.[key] ?? cliConfig?.[key] ?? config[key];
+
+        // Ensure the value is coerced to a string if it's a boolean
+        if (typeof value === 'boolean') {
+            value = value.toString();
+        }
 
         if (suppressErrors) {
             try {

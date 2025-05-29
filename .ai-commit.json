@@ -1,3 +1,7 @@
 {
-    "projectPrompt": "This is a Node.js CLI tool that uses OpenAI to generate meaningful git commit messages."
+    "projectPrompt": "This is a Node.js CLI tool that uses OpenAI to generate meaningful git commit messages.",
+    "model": "gpt-4o-mini",
+    "locale": "en",
+    "max-length": "100",
+    "temperature": "0.2"
 }
