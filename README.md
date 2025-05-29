@@ -1,22 +1,34 @@
 <div align="center">
     <h1>🤖 AI-Commit 🤖</h1>
     <img src="./.github/screenshot.png" alt="License" width="1000" height="300">
-    <p>Your coding companion, ensures that every commit you make is meaningful, insightful, and contributing positively towards your development workflow.</p>
+    <p>A powerful CLI tool that uses AI to generate meaningful, insightful git commit messages based on your code changes.</p>
     <a href="https://www.npmjs.com/package/@negoziator/ai-commit"><img src="https://img.shields.io/npm/v/@negoziator/ai-commit" alt="Current version"></a>
 </div>
 
 ---
 
 ## Table of Contents
+- [Features](#features)
 - [Setup](#setup)
     - [Installation](#installation)
     - [Upgrading](#upgrading)
 - [Usage](#usage)
     - [CLI Mode](#cli-mode)
+    - [Git Hook Integration](#git-hook-integration)
 - [Configuration](#configuration)
-  - [Options](#options)
+    - [Options](#options)
+    - [Project-Specific Configuration](#project-specific-configuration)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
+
+## Features
+
+- 🤖 **AI-Powered Commits**: Generates meaningful commit messages based on your code changes
+- 🔄 **Git Integration**: Works seamlessly with your existing Git workflow
+- 🪝 **Git Hook Support**: Can be installed as a Git hook for automatic message generation
+- 🌐 **Multiple Languages**: Supports commit messages in different locales
+- ⚙️ **Customizable**: Configure the AI model, message length, and other parameters
+- 📝 **Project Context**: Add project-specific context to improve message relevance
 
 ## Setup
 > A minimum of Node v20 is required. Check your Node.js version with `node --version`.
@@ -25,6 +37,7 @@
 1. **Install AI-Commit:**
    ```sh
    npm install -g @negoziator/ai-commit
+   ```
 
 2. **Retrieve your API key from [OpenAI](https://platform.openai.com/account/api-keys)**
 
@@ -32,9 +45,9 @@
 
 3. **Set the key so aicommit can use it:**
 
-    ```sh
-    aicommit config set OPENAI_KEY=<your token>
-    ```
+   ```sh
+   aicommit config set OPENAI_KEY=<your token>
+   ```
 
    This will create a `.aicommit` file in your home directory.
 
@@ -53,6 +66,36 @@ Use `aicommit` directly to generate a commit message for your staged changes:
 ```sh
 git add <files...>
 aicommit
+```
+
+Example workflow:
+```
+$ git add .
+$ aicommit
+✓ Analyzing your changes...
+✓ Generating commit message...
+
+AI-generated commit message:
+feat: add project-specific configuration support via .ai-commit.json
+
+? Use this message? › (Y/n)
+```
+
+### Git Hook Integration
+
+You can set up AI-Commit as a Git hook to automatically generate commit messages:
+
+```sh
+# Install the prepare-commit-msg hook
+aicommit hook install
+```
+
+This will add a Git hook that automatically suggests commit messages when you run `git commit`.
+
+To uninstall the hook:
+
+```sh
+aicommit hook uninstall
 ```
 
 ## Configuration
