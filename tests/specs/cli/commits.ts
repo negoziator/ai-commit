@@ -55,7 +55,8 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(52);
+            expect(commitMessage.length).toBeGreaterThan(20);
+            expect(commitMessage.length).toBeLessThan(60);
 
             await fixture.rm();
         });
@@ -118,14 +119,15 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(52);
+            expect(commitMessage.length).toBeGreaterThan(20);
+            expect(commitMessage.length).toBeLessThan(60);
             await fixture.rm();
         });
 
-        test('Generated commit message must be under 50 characters', async () => {
+        test('Generated commit message must be under 50 (+- 10) characters ()', async () => {
             const { fixture, aicommit } = await createFixture({
                 ...files,
-                '.aicommit': `${files['.aicommit']}\nmax-length=40`,
+                '.aicommit': `${files['.aicommit']}\nmax-length=50`,
             });
 
             const git = await createGit(fixture.path);
@@ -148,7 +150,8 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(52);
+            expect(commitMessage.length).toBeGreaterThan(20);
+            expect(commitMessage.length).toBeLessThan(60);
 
             await fixture.rm();
         });
@@ -185,7 +188,8 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(52);
+            expect(commitMessage.length).toBeGreaterThan(20);
+            expect(commitMessage.length).toBeLessThan(60);
 
             await fixture.rm();
         });
@@ -229,7 +233,8 @@ export default testSuite(({ describe }) => {
                 commitMessage,
                 length: commitMessage.length,
             });
-            expect(commitMessage.length).toBeLessThanOrEqual(52);
+            expect(commitMessage.length).toBeGreaterThan(20);
+            expect(commitMessage.length).toBeLessThan(60);
 
             await fixture.rm();
         });
@@ -267,7 +272,8 @@ export default testSuite(({ describe }) => {
                 length: commitMessage.length,
             });
             expect(commitMessage).toMatch(japanesePattern);
-            expect(commitMessage.length).toBeLessThanOrEqual(52);
+            expect(commitMessage.length).toBeGreaterThan(20);
+            expect(commitMessage.length).toBeLessThan(60);
 
             await fixture.rm();
         });

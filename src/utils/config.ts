@@ -106,7 +106,7 @@ const configParsers = {
     },
     'max-length'(maxLength?: string) {
         if (!maxLength) {
-            return 50;
+            return '50';
         }
 
         parseAssert('max-length', /^\d+$/.test(maxLength), 'Must be an integer');
