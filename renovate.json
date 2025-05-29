@@ -7,7 +7,6 @@
         "config:recommended",
         ":disableRateLimiting",
         "docker:disable",
-        ":semanticCommitTypeAll(chore)"
     ],
     "rangeStrategy": "update-lockfile",
     "dependencyDashboard": true,
@@ -19,7 +18,7 @@
             "matchUpdateTypes": [
                 "patch"
             ],
-            "groupName": "all patch dependencies",
+            "groupName": "fix(deps) all patch dependencies",
             "groupSlug": "update-patch-dependencies",
             "enabled": true,
             "automerge": true,
@@ -31,7 +30,7 @@
             "matchUpdateTypes": [
                 "minor"
             ],
-            "groupName": "all minor dependencies",
+            "groupName": "feat(deps) all minor dependencies",
             "groupSlug": "update-minor-dependencies",
             "enabled": true,
             "automerge": true,
