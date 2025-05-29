@@ -241,7 +241,7 @@ export default testSuite(({ describe }) => {
           });
         };
 
-        const stdout = await runTestFile();
+        const stdout = await runTestFile() as string;
         const config = JSON.parse(stdout);
 
         // Verify that project config values take precedence
