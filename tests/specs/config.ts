@@ -2,6 +2,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import { testSuite, expect } from 'manten'
 import { createFixture } from '../utils.js'
+import { spawn } from  "node:child_process";
 
 export default testSuite(({ describe }) => {
   describe('config', async ({ test, describe }) => {
@@ -218,13 +219,35 @@ export default testSuite(({ describe }) => {
         await fixture.writeFile('test-config.js', testFile)
 
         // Run the test file
-        const { stdout } = await fixture.exec('node', ['test-config.js'])
-        const config = JSON.parse(stdout)
+        const runTestFile = () => {
+          return new Promise((resolve, reject) => {
+            const process = spawn('node', ['test-config.js'], {
+              cwd: fixture.path,
+              stdio: ['inherit', 'pipe', 'inherit'], // Attach stdout only
+            });
+
+            let output = '';
+            process.stdout.on('data', (data) => {
+              output += data;
+            });
+
+            process.on('close', (code) => {
+              if (code === 0) {
+                resolve(output);
+              } else {
+                reject(new Error(`Process exited with code ${code}`));
+              }
+            });
+          });
+        };
+
+        const stdout = await runTestFile();
+        const config = JSON.parse(stdout);
 
         // Verify that project config values take precedence
-        expect(config.locale).toBe('fr')
-        expect(config.model).toBe('gpt-4')
-        expect(config['max-length']).toBe(100)
+        expect(config.locale).toBe('fr');
+        expect(config.model).toBe('gpt-4');
+        expect(config['max-length']).toBe(100);
       })
     })
 
