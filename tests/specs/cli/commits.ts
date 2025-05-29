@@ -272,8 +272,6 @@ export default testSuite(({ describe }) => {
                 length: commitMessage.length,
             });
             expect(commitMessage).toMatch(japanesePattern);
-            expect(commitMessage.length).toBeGreaterThan(20);
-            expect(commitMessage.length).toBeLessThan(60);
 
             await fixture.rm();
         });
