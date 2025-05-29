@@ -27,7 +27,19 @@ export interface ProjectConfig {
  */
 export const getProjectConfig = async (repoRootPath?: string): Promise<ProjectConfig | undefined> => {
   try {
-    const repoRoot = repoRootPath || await assertGitRepo();
+    // If repoRootPath is not provided, try to get it from assertGitRepo
+    // If assertGitRepo fails (not a Git repo), just return undefined
+    let repoRoot: string;
+    try {
+      repoRoot = repoRootPath || await assertGitRepo();
+    } catch (error) {
+      // If not in a Git repo, return undefined
+      if (error instanceof KnownError && error.message.includes('Git repository')) {
+        return undefined;
+      }
+      throw error;
+    }
+
     const configPath = path.join(repoRoot, '.ai-commit.json');
 
     const configExists = await fileExists(configPath);
