@@ -136,14 +136,20 @@ aicommit config set <key>=<value>
 
 ### Project-Specific Configuration
 
-You can add a `.ai-commit.json` file in the root of your project to provide additional context about your project to the AI. This helps generate more accurate and relevant commit messages.
+You can add a `.ai-commit.json` file in the root of your project to provide additional context about your project to the AI and to override global configuration settings for the specific project.
 
 Example `.ai-commit.json`:
 ```json
 {
-  "projectPrompt": "This is a Node.js CLI tool that uses OpenAI to generate meaningful git commit messages."
+  "projectPrompt": "This is a Node.js CLI tool that uses OpenAI to generate meaningful git commit messages.",
+  "model": "gpt-4",
+  "locale": "en",
+  "max-length": "100",
+  "temperature": "0.5"
 }
 ```
+
+The `.ai-commit.json` file can contain any of the configuration options listed in the [Options](#options) section. Values set in this file will take precedence over the global configuration.
 
 The `projectPrompt` field should contain a brief description of your project, its purpose, and any other relevant information that would help the AI understand the context of your code changes.
 

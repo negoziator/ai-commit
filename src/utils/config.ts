@@ -4,6 +4,7 @@ import os from 'os';
 import ini from 'ini';
 import { fileExists } from './fs.js';
 import { KnownError } from './error.js';
+import { getProjectConfig } from './project-config.js';
 
 const commitTypes = ['', 'conventional'] as const;
 
@@ -169,11 +170,13 @@ export const getConfig = async (
     suppressErrors?: boolean,
 ): Promise<ValidConfig> => {
     const config = await readConfigFile();
+    const projectConfig = await getProjectConfig();
     const parsedConfig: Record<string, unknown> = {};
 
     for (const key of Object.keys(configParsers) as ConfigKeys[]) {
         const parser = configParsers[key];
-        const value = cliConfig?.[key] ?? config[key];
+        // Project config takes precedence over global config and CLI config
+        const value = projectConfig?.[key] ?? cliConfig?.[key] ?? config[key];
 
         if (suppressErrors) {
             try {

@@ -6,6 +6,17 @@ import { KnownError } from './error.js';
 
 export interface ProjectConfig {
   projectPrompt?: string;
+  OPENAI_KEY?: string;
+  locale?: string;
+  generate?: string;
+  type?: string;
+  proxy?: string;
+  model?: string;
+  timeout?: string;
+  temperature?: string;
+  'max-length'?: string;
+  'auto-confirm'?: string | boolean;
+  'prepend-reference'?: string | boolean;
 }
 
 /**

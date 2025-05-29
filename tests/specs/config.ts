@@ -185,6 +185,49 @@ export default testSuite(({ describe }) => {
       expect(stdout).toBe(openAiToken)
     })
 
+    await describe('project config precedence', ({ test }) => {
+      test('project config takes precedence over global config', async () => {
+        // Set global config
+        await aicommit(['config', 'set', 'locale=en'])
+        await aicommit(['config', 'set', 'model=gpt-4o-mini'])
+        await aicommit(['config', 'set', 'max-length=50'])
+
+        // Create project config with different values
+        const projectConfig = {
+          locale: 'fr',
+          model: 'gpt-4',
+          'max-length': '100'
+        }
+
+        await fixture.writeFile('.ai-commit.json', JSON.stringify(projectConfig))
+
+        // No need to mock anything, the test will use the actual implementation
+
+        // Create a test file that uses getConfig
+        const testFile = `
+          import { getConfig } from '../../src/utils/config.js'
+
+          async function main() {
+            const config = await getConfig()
+            console.log(JSON.stringify(config))
+          }
+
+          main().catch(console.error)
+        `
+
+        await fixture.writeFile('test-config.js', testFile)
+
+        // Run the test file
+        const { stdout } = await fixture.exec('node', ['test-config.js'])
+        const config = JSON.parse(stdout)
+
+        // Verify that project config values take precedence
+        expect(config.locale).toBe('fr')
+        expect(config.model).toBe('gpt-4')
+        expect(config['max-length']).toBe(100)
+      })
+    })
+
     await fixture.rm()
   })
 })
