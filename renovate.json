@@ -42,6 +42,8 @@
             "matchUpdateTypes": [
                 "major"
             ],
+            "groupName": "feat(deps): {{ depName }}",
+            "groupSlug": "update-major-{{ depName }}",
             "enabled": true,
             "automerge": false,
             "matchPackageNames": [
