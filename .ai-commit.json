@@ -1,0 +1,3 @@
+{
+    "projectPrompt": "This is a Node.js CLI tool that uses OpenAI to generate meaningful git commit messages."
+}

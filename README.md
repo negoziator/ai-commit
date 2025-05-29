@@ -91,6 +91,19 @@ aicommit config set <key>=<value>
 | `prepend-reference` | `false`         | Prepend issue reference from branch name to commit message.                           |
 | `temperature`       | `0.2`           | The temperature (0.0-2.0) is used to control the randomness of the output from OpenAI |
 
+### Project-Specific Configuration
+
+You can add a `.ai-commit.json` file in the root of your project to provide additional context about your project to the AI. This helps generate more accurate and relevant commit messages.
+
+Example `.ai-commit.json`:
+```json
+{
+  "projectPrompt": "This is a Node.js CLI tool that uses OpenAI to generate meaningful git commit messages."
+}
+```
+
+The `projectPrompt` field should contain a brief description of your project, its purpose, and any other relevant information that would help the AI understand the context of your code changes.
+
 ## Maintainers
 [![NegoZiatoR](https://img.shields.io/badge/NegoZiatoR-blue?style=flat&logo=x&link=https://twitter.com/negoziator)](https://twitter.com/negoziator)
 

@@ -1,4 +1,5 @@
 import type { CommitType } from './config.js';
+import type { ProjectConfig } from './project-config.js';
 
 const commitTypeFormats: Record<CommitType, string> = {
     '': '<commit message>',
@@ -39,12 +40,14 @@ export const generatePrompt = (
     locale: string,
     maxLength: number,
     type: CommitType,
+    projectConfig?: ProjectConfig,
 ) => [
     'Generate a concise git commit message written in present tense for the following code diff with the given specifications below:',
     `Message language: ${locale}`,
     `Commit message must be a maximum of ${maxLength} characters.`,
     'Exclude anything unnecessary such as translation. Your entire response will be passed directly into git commit.',
     'Try to focus on why the code changes was made and not only summarize the changes.',
+    projectConfig?.projectPrompt ? `Project context: ${projectConfig.projectPrompt}` : null,
     commitTypes[type],
     specifyCommitFormat(type),
 ].filter(Boolean).join('\n');
