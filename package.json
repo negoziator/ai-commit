@@ -55,5 +55,9 @@
         "branches": [
             "master"
         ]
+    },
+    "dependencies": {
+        "braces": "^3.0.3",
+        "micromatch": "^4.0.8"
     }
 }
