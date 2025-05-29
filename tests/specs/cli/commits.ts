@@ -276,6 +276,42 @@ export default testSuite(({ describe }) => {
             await fixture.rm();
         });
 
+        test('Uses project prompt from .ai-commit.json', async () => {
+            const { fixture, aicommit } = await createFixture(files);
+            const git = await createGit(fixture.path);
+
+            // Create .ai-commit.json file with projectPrompt
+            await fixture.writeFile('.ai-commit.json', JSON.stringify({
+                projectPrompt: 'This is a test project that manages JSON data files.'
+            }));
+
+            await git('add', ['data.json']);
+
+            const committing = aicommit();
+            committing.stdout!.on('data', (buffer: Buffer) => {
+                const stdout = buffer.toString();
+                if (stdout.match('└')) {
+                    committing.stdin!.write('y');
+                    committing.stdin!.end();
+                }
+            });
+
+            await committing;
+
+            const statusAfter = await git('status', ['--porcelain', '--untracked-files=no']);
+            expect(statusAfter.stdout).toBe('');
+
+            const { stdout: commitMessage } = await git('log', ['--pretty=format:%s']);
+            console.log({
+                commitMessage,
+                length: commitMessage.length,
+            });
+            expect(commitMessage.length).toBeGreaterThan(20);
+            expect(commitMessage.length).toBeLessThan(60);
+
+            await fixture.rm();
+        });
+
         describe('commit types', ({ test }) => {
             test('Should not use conventional commits by default', async () => {
                 const conventionalCommitPattern = /(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test):\s/;

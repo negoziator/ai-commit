@@ -5,6 +5,7 @@ import createHttpsProxyAgent from 'https-proxy-agent';
 import { KnownError } from './error.js';
 import { CommitType } from './config.js';
 import { generatePrompt } from './prompt.js';
+import { getProjectConfig } from './project-config.js';
 
 const httpsPost = async (
     hostname: string,
@@ -130,6 +131,9 @@ export const generateCommitMessage = async (
     temperature: number,
 ) => {
     try {
+        // Get project config if available
+        const projectConfig = await getProjectConfig();
+
         const completion = await createChatCompletion(
             apiKey,
             {
@@ -137,7 +141,7 @@ export const generateCommitMessage = async (
                 messages: [
                     {
                         role: 'system',
-                        content: generatePrompt(locale, maxLength, type),
+                        content: generatePrompt(locale, maxLength, type, projectConfig),
                     },
                     {
                         role: 'user',
