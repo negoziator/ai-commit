@@ -17,8 +17,6 @@
         "commitMessageTopic": "{{depName}}",
         "commitMessagePrefix": "feat(deps): ",
         "commitBody": "This is an automated update of the {{depName}} dependency to version {{newVersion}}.",
-        "commitMessage": "{{{commitMessagePrefix}}}{{{commitMessageTopic}}} {{newVersion}}\n\n{{{commitBody}}}",
-        "prTitle": "feat(deps): {{depName}} {{newVersion}}",
         "prBody": "This is an automated update of the {{depName}} dependency to version {{newVersion}}.\n\n{{{changelog}}}",
         "prBodyNotes": [
             "This is an automated update of the {{depName}} dependency to version {{newVersion}}.",
