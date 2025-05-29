@@ -14,7 +14,7 @@
         "dependencyDashboardApproval": true,
         "automerge": false,
         "commitMessagePrefix": "feat(deps): ",
-        "commitMessageTopic": "Update {{depName}} to {{newVersion}}",
+        "commitMessageTopic": "{{depName}} to {{newVersion}}",
         "prBody": "This is an automated update of the {{depName}} dependency to version {{newVersion}}.\n\n{{{changelog}}}"
     },
     "packageRules": [
