@@ -133,6 +133,7 @@ aicommit config set <key>=<value>
 | `auto-confirm`      | `false`         | Automatically confirm the generated commit message without user prompt.               |
 | `prepend-reference` | `false`         | Prepend issue reference from branch name to commit message.                           |
 | `temperature`       | `0.2`           | The temperature (0.0-2.0) is used to control the randomness of the output from OpenAI |
+| `max-completion-tokens` | `10000`         | Maximum number of tokens that can be generated in the completion                      |
 
 ### Project-Specific Configuration
 
@@ -145,7 +146,8 @@ Example `.ai-commit.json`:
   "model": "gpt-4",
   "locale": "en",
   "max-length": "100",
-  "temperature": "0.5"
+  "temperature": "0.5",
+  "max-completion-tokens": "5000"
 }
 ```
 

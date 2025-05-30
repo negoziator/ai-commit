@@ -15,6 +15,7 @@ export interface ProjectConfig {
   timeout?: string;
   temperature?: string;
   'max-length'?: string;
+  'max-completion-tokens'?: string;
   'auto-confirm'?: string | boolean;
   'prepend-reference'?: string | boolean;
 }

@@ -43,6 +43,7 @@ export default testSuite(({ describe }) => {
         timeout: '15000',
         temperature: '0.5',
         'max-length': '100',
+        'max-completion-tokens': '5000',
         'auto-confirm': true,
         'prepend-reference': true
       };
@@ -60,6 +61,7 @@ export default testSuite(({ describe }) => {
       expect(config?.timeout).toBe(projectConfig.timeout);
       expect(config?.temperature).toBe(projectConfig.temperature);
       expect(config?.['max-length']).toBe(projectConfig['max-length']);
+      expect(config?.['max-completion-tokens']).toBe(projectConfig['max-completion-tokens']);
       expect(config?.['auto-confirm']).toBe(projectConfig['auto-confirm']);
       expect(config?.['prepend-reference']).toBe(projectConfig['prepend-reference']);
 
