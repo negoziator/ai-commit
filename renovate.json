@@ -16,6 +16,16 @@
         "commitMessagePrefix": "feat(deps): ",
         "commitMessageTopic": "{{depName}}"
     },
+    "minor": {
+        "automerge": true,
+        "commitMessagePrefix": "feat(deps): ",
+        "commitMessageTopic": "{{depName}}"
+    },
+    "patch": {
+        "automerge": true,
+        "commitMessagePrefix": "fix(deps): ",
+        "commitMessageTopic": "{{depName}}"
+    },
     "packageRules": [
         {
             "matchUpdateTypes": [
