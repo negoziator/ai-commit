@@ -64,6 +64,7 @@ export default async (
             config.type,
             config.timeout,
             config.temperature,
+            config['max-completion-tokens'],
         );
     } finally {
         s.stop('Changes analyzed');

@@ -117,6 +117,18 @@ const configParsers = {
 
         return parsed;
     },
+    'max-completion-tokens'(maxCompletionTokens?: string) {
+        if (!maxCompletionTokens) {
+            return 10000;
+        }
+
+        parseAssert('max-completion-tokens', /^\d+$/.test(maxCompletionTokens), 'Must be an integer');
+
+        const parsed = Number(maxCompletionTokens);
+        parseAssert('max-completion-tokens', parsed > 0, 'Must be greater than 0');
+
+        return parsed;
+    },
     'auto-confirm'(autoConfirm?: string | boolean) {
         if (!autoConfirm) {
             return false;

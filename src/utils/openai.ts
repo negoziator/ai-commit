@@ -129,6 +129,7 @@ export const generateCommitMessage = async (
     type: CommitType,
     timeout: number,
     temperature: number,
+    maxCompletionTokens: number,
 ) => {
     try {
         // Get project config if available
@@ -152,7 +153,7 @@ export const generateCommitMessage = async (
                 top_p: 1,
                 frequency_penalty: 0,
                 presence_penalty: 0,
-                max_tokens: 300,
+                max_completion_tokens: maxCompletionTokens,
                 stream: false,
                 n: completions,
             },
