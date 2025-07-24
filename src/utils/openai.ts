@@ -22,7 +22,6 @@ const httpsPost = async (
     const postContent = JSON.stringify(json);
     const request = https.request(
         {
-            port: 443,
             hostname,
             path,
             method: 'POST',
@@ -34,7 +33,7 @@ const httpsPost = async (
             timeout,
             agent: (
                 proxy
-                    ? createHttpsProxyAgent(proxy)
+                    ? createHttpsProxyAgent(proxy) as unknown as https.Agent
                     : undefined
             ),
         },
