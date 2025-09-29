@@ -1,5 +1,5 @@
 import { cli } from 'cleye'
-import { description, version } from '../package.json'
+import packageJson from '../package.json'
 import aicommit from './commands/aicommit.js'
 import prepareCommitMessageHook from './commands/prepare-commit-msg-hook.js'
 import configCommand from './commands/config.js'
@@ -11,7 +11,7 @@ cli(
   {
     name: 'aicommit',
 
-    version,
+    version: packageJson.version,
 
     /**
          * Since this is a wrapper around `git commit`,
@@ -48,7 +48,7 @@ cli(
     ],
 
     help: {
-      description
+      description: packageJson.description
     },
 
     ignoreArgv: type => type === 'unknown-flag' || type === 'argument'
