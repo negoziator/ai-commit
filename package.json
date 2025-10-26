@@ -47,7 +47,7 @@
     "kolorist": "^1.7.0",
     "manten": "^1.0.0",
     "micromatch": "^4.0.8",
-    "openai": "^5.0.0",
+    "openai": "^6.0.0",
     "pkgroll": "^2.0.0",
     "simple-git-hooks": "^2.8.1",
     "tsx": "^4.19.0",
