@@ -29,4 +29,5 @@ dist
 # Eslint cache
 .eslintcache
 
+# Cascade ai files
 .cascade
