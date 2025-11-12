@@ -9,6 +9,7 @@
 
 import { CommitType } from './config.js';
 import { getProjectConfig } from './project-config.js';
+import { KnownError } from './error.js';
 import OpenAIProvider from '../providers/openai.js';
 
 /**
@@ -17,7 +18,7 @@ import OpenAIProvider from '../providers/openai.js';
  * @deprecated Use OpenAIProvider directly for new code
  */
 export const generateCommitMessage = async (
-    apiKey: string,
+    apiKey: string | undefined,
     model: string,
     locale: string,
     diff: string,
@@ -29,6 +30,13 @@ export const generateCommitMessage = async (
     maxCompletionTokens: number,
     proxy?: string,
 ): Promise<string[]> => {
+    // Validate API key
+    if (!apiKey) {
+        throw new KnownError(
+            'OpenAI API key is required. Please set it via `aicommit config set OPENAI_KEY=<your token>`'
+        );
+    }
+
     // Get project config if available
     const projectConfig = await getProjectConfig();
 

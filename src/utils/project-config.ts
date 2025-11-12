@@ -6,7 +6,14 @@ import { KnownError } from './error.js';
 
 export interface ProjectConfig {
   projectPrompt?: string;
+  provider?: string;
   OPENAI_KEY?: string;
+  ANTHROPIC_KEY?: string;
+  AZURE_OPENAI_KEY?: string;
+  AZURE_ENDPOINT?: string;
+  OLLAMA_ENDPOINT?: string;
+  CUSTOM_ENDPOINT?: string;
+  CUSTOM_KEY?: string;
   locale?: string;
   generate?: string;
   type?: string;

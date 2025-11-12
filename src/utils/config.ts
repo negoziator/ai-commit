@@ -5,6 +5,7 @@ import ini from 'ini';
 import { fileExists } from './fs.js';
 import { KnownError } from './error.js';
 import { getProjectConfig } from './project-config.js';
+import { PROVIDER_TYPES, type ProviderType } from '../providers/types.js';
 
 const commitTypes = ['', 'conventional'] as const;
 
@@ -24,13 +25,68 @@ const parseAssert = (
 };
 
 const configParsers = {
+    provider(providerType?: string) {
+        if (!providerType) {
+            return 'openai' as ProviderType;
+        }
+
+        parseAssert(
+            'provider',
+            PROVIDER_TYPES.includes(providerType as ProviderType),
+            `Must be one of: ${PROVIDER_TYPES.join(', ')}`
+        );
+
+        return providerType as ProviderType;
+    },
     OPENAI_KEY(key?: string) {
+        // Optional - only required if provider is openai (default)
+        // Validation happens in validateProviderConfig()
         if (!key) {
-            throw new KnownError('Please set your OpenAI API key via `aicommit config set OPENAI_KEY=<your token>`');
+            return undefined;
         }
         parseAssert('OPENAI_KEY', key.startsWith('sk-'), 'Must start with "sk-"');
         // Key can range from 43~51 characters. There's no spec to assert this.
 
+        return key;
+    },
+    ANTHROPIC_KEY(key?: string) {
+        // Optional - only required if provider is anthropic
+        if (!key) {
+            return undefined;
+        }
+        parseAssert('ANTHROPIC_KEY', key.startsWith('sk-ant-'), 'Must start with "sk-ant-"');
+        return key;
+    },
+    AZURE_OPENAI_KEY(key?: string) {
+        // Optional - only required if provider is azure-openai
+        return key;
+    },
+    AZURE_ENDPOINT(endpoint?: string) {
+        // Optional - only required if provider is azure-openai
+        if (!endpoint) {
+            return undefined;
+        }
+        parseAssert('AZURE_ENDPOINT', /^https?:\/\//.test(endpoint), 'Must be a valid URL');
+        return endpoint;
+    },
+    OLLAMA_ENDPOINT(endpoint?: string) {
+        // Optional - only required if provider is ollama
+        if (!endpoint) {
+            return 'http://localhost:11434'; // Default Ollama endpoint
+        }
+        parseAssert('OLLAMA_ENDPOINT', /^https?:\/\//.test(endpoint), 'Must be a valid URL');
+        return endpoint;
+    },
+    CUSTOM_ENDPOINT(endpoint?: string) {
+        // Optional - only required if provider is custom
+        if (!endpoint) {
+            return undefined;
+        }
+        parseAssert('CUSTOM_ENDPOINT', /^https?:\/\//.test(endpoint), 'Must be a valid URL');
+        return endpoint;
+    },
+    CUSTOM_KEY(key?: string) {
+        // Optional - only required if provider is custom and endpoint requires auth
         return key;
     },
     locale(locale?: string) {
@@ -177,6 +233,60 @@ const readConfigFile = async (): Promise<RawConfig> => {
     return ini.parse(configString);
 };
 
+/**
+ * Validate provider-specific configuration requirements
+ */
+const validateProviderConfig = (config: ValidConfig): void => {
+    const provider = config.provider;
+
+    switch (provider) {
+        case 'openai':
+            if (!config.OPENAI_KEY) {
+                throw new KnownError(
+                    'Please set your OpenAI API key via `aicommit config set OPENAI_KEY=<your token>`'
+                );
+            }
+            break;
+
+        case 'anthropic':
+            if (!config.ANTHROPIC_KEY) {
+                throw new KnownError(
+                    'Please set your Anthropic API key via `aicommit config set ANTHROPIC_KEY=<your token>`\n' +
+                    'Get your API key from: https://console.anthropic.com/'
+                );
+            }
+            break;
+
+        case 'azure-openai':
+            if (!config.AZURE_OPENAI_KEY) {
+                throw new KnownError(
+                    'Please set your Azure OpenAI API key via `aicommit config set AZURE_OPENAI_KEY=<your token>`'
+                );
+            }
+            if (!config.AZURE_ENDPOINT) {
+                throw new KnownError(
+                    'Please set your Azure OpenAI endpoint via `aicommit config set AZURE_ENDPOINT=<your endpoint>`'
+                );
+            }
+            break;
+
+        case 'ollama':
+            // OLLAMA_ENDPOINT has a default, so no validation needed
+            break;
+
+        case 'custom':
+            if (!config.CUSTOM_ENDPOINT) {
+                throw new KnownError(
+                    'Please set your custom endpoint via `aicommit config set CUSTOM_ENDPOINT=<your endpoint>`'
+                );
+            }
+            break;
+
+        default:
+            throw new KnownError(`Unknown provider: ${provider}`);
+    }
+};
+
 export const getConfig = async (
     cliConfig?: RawConfig,
     suppressErrors?: boolean,
@@ -204,7 +314,14 @@ export const getConfig = async (
         }
     }
 
-    return parsedConfig as ValidConfig;
+    const validConfig = parsedConfig as ValidConfig;
+
+    // Validate provider-specific requirements
+    if (!suppressErrors) {
+        validateProviderConfig(validConfig);
+    }
+
+    return validConfig;
 };
 
 export const setConfigs = async (
