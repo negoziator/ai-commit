@@ -20,6 +20,7 @@ lerna-debug.log*
 
 # dotenv environment variables file
 .env
+.env.local
 .env.test
 
 # Distribution
@@ -27,3 +28,6 @@ dist
 
 # Eslint cache
 .eslintcache
+
+# Cascade ai files
+.cascade

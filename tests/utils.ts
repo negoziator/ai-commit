@@ -6,6 +6,13 @@ import {
     type FileTree,
     type FsFixture,
 } from 'fs-fixture';
+import { loadEnvironment } from '../src/utils/dotenv.js';
+
+// Set NODE_ENV to test so loadEnvironment uses .env.local
+process.env.NODE_ENV = 'test';
+
+// Load environment variables (.env.local for local testing)
+await loadEnvironment();
 
 const aicommitPath = path.resolve('./dist/cli.mjs');
 
