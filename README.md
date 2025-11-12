@@ -23,6 +23,7 @@
     - [Custom/RAG](#customrag)
 - [Configuration](#configuration)
     - [Options](#options)
+    - [Environment Variables (.env)](#environment-variables-env)
     - [Project-Specific Configuration](#project-specific-configuration)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
@@ -295,6 +296,41 @@ aicommit config set <key>=<value>
 | `OLLAMA_ENDPOINT`   | Ollama          | Ollama server endpoint (default: `http://localhost:11434`)                            |
 | `CUSTOM_ENDPOINT`   | Custom          | Custom API endpoint URL                                                               |
 | `CUSTOM_KEY`        | Custom          | Custom API key (optional, for endpoints requiring authentication)                     |
+
+### Environment Variables (.env)
+
+For local development, you can create environment files in your project root:
+
+**For CLI usage** (`.env`):
+```bash
+# .env - Used when running aicommit
+provider=anthropic
+ANTHROPIC_KEY=sk-ant-...
+model=claude-3-5-sonnet-20241022
+max-length=80
+```
+
+**For testing** (`.env.local`):
+```bash
+# .env.local - Used when running npm test
+OPENAI_KEY=sk-...
+# or
+provider=anthropic
+ANTHROPIC_KEY=sk-ant-...
+```
+
+**File usage:**
+- `.env` → Loaded when running `aicommit` (CLI usage)
+- `.env.local` → Loaded when running `npm test` (local testing only)
+- Both files are gitignored for security
+
+**Priority order** (highest to lowest):
+1. `.ai-commit.json` (project-specific)
+2. CLI arguments
+3. Environment variables (`.env`, `.env.local`, or shell)
+4. Global config (`~/.aicommit`)
+
+**Note:** See `.env.example` for all available options. Copy it to `.env` for CLI usage or `.env.local` for testing.
 
 ### Project-Specific Configuration
 

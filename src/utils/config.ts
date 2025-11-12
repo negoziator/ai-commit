@@ -5,6 +5,7 @@ import ini from 'ini';
 import { fileExists } from './fs.js';
 import { KnownError } from './error.js';
 import { getProjectConfig } from './project-config.js';
+import { loadEnvironment } from './dotenv.js';
 import { PROVIDER_TYPES, type ProviderType } from '../providers/types.js';
 
 const commitTypes = ['', 'conventional'] as const;
@@ -291,14 +292,17 @@ export const getConfig = async (
     cliConfig?: RawConfig,
     suppressErrors?: boolean,
 ): Promise<ValidConfig> => {
+    // Load environment variables (.env for CLI, .env.local for tests)
+    await loadEnvironment();
+
     const config = await readConfigFile();
     const projectConfig = await getProjectConfig();
     const parsedConfig: Record<string, unknown> = {};
 
     for (const key of Object.keys(configParsers) as ConfigKeys[]) {
         const parser = configParsers[key];
-        // Project config takes precedence over global config and CLI config
-        let value = projectConfig?.[key] ?? cliConfig?.[key] ?? config[key];
+        // Priority: Project config > CLI config > Environment variables > Global config
+        let value = projectConfig?.[key] ?? cliConfig?.[key] ?? process.env[key] ?? config[key];
 
         // Ensure the value is coerced to a string if it's a boolean
         if (typeof value === 'boolean') {
