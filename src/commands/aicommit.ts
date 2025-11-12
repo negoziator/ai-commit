@@ -65,6 +65,7 @@ export default async (
             config.timeout,
             config.temperature,
             config['max-completion-tokens'],
+            config.proxy,
         );
     } finally {
         s.stop('Changes analyzed');
