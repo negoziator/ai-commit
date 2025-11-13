@@ -7,7 +7,9 @@ import {
 } from 'kolorist';
 import { getStagedDiff } from '../utils/git.js';
 import { getConfig } from '../utils/config.js';
-import { generateCommitMessage } from '../utils/openai.js';
+import { getProjectConfig } from '../utils/project-config.js';
+import { createProvider } from '../providers/index.js';
+import type { ProviderConfig } from '../providers/types.js';
 import { KnownError, handleCliError } from '../utils/error.js';
 
 const [messageFilePath, commitSource] = process.argv.slice(2);
@@ -39,19 +41,66 @@ export default () => (async () => {
     s.start('The AI is analyzing your changes');
     let messages: string[];
     try {
-        messages = await generateCommitMessage(
-            config.OPENAI_KEY,
-            config.model,
-            config.locale,
-            staged!.diff,
-            config.generate,
-            config['max-length'],
-            config.type,
-            config.timeout,
-            config.temperature,
-            config['max-completion-tokens'],
-            config.proxy,
-        );
+        const baseConfig = {
+            model: config.model,
+            locale: config.locale,
+            maxLength: config['max-length'],
+            type: config.type,
+            timeout: config.timeout,
+            temperature: config.temperature,
+            maxCompletionTokens: config['max-completion-tokens'],
+            proxy: config.proxy,
+        } as const;
+
+        let providerConfig: ProviderConfig;
+        switch (config.provider) {
+            case 'openai':
+                providerConfig = {
+                    ...baseConfig,
+                    apiKey: config.OPENAI_KEY!,
+                };
+                break;
+            case 'anthropic':
+                providerConfig = {
+                    ...baseConfig,
+                    apiKey: config.ANTHROPIC_KEY!,
+                } as unknown as ProviderConfig;
+                break;
+            case 'azure-openai':
+                providerConfig = {
+                    ...baseConfig,
+                    apiKey: config.AZURE_OPENAI_KEY!,
+                    endpoint: config.AZURE_ENDPOINT!,
+                } as unknown as ProviderConfig;
+                break;
+            case 'ollama':
+                providerConfig = {
+                    ...baseConfig,
+                    endpoint: config.OLLAMA_ENDPOINT,
+                } as unknown as ProviderConfig;
+                break;
+            case 'custom':
+                providerConfig = {
+                    ...baseConfig,
+                    endpoint: config.CUSTOM_ENDPOINT!,
+                    apiKey: config.CUSTOM_KEY,
+                } as unknown as ProviderConfig;
+                break;
+            default:
+                providerConfig = {
+                    ...baseConfig,
+                    apiKey: config.OPENAI_KEY!,
+                } as unknown as ProviderConfig;
+        }
+
+        const provider = await createProvider(config.provider, providerConfig);
+        const projectConfig = await getProjectConfig();
+        const result = await provider.generateCommitMessage({
+            diff: staged!.diff,
+            completions: config.generate,
+            projectConfig,
+        });
+        messages = result.messages;
     } finally {
         s.stop('Changes analyzed');
     }
