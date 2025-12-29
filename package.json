@@ -11,15 +11,18 @@
         "commit"
     ],
     "license": "MIT",
-    "repository": "negoziator/ai-commit",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/negoziator/ai-commit.git"
+    },
     "author": "Lars Schou",
     "type": "module",
     "files": [
         "dist"
     ],
     "bin": {
-        "aicommit": "./dist/cli.mjs",
-        "aic": "./dist/cli.mjs"
+        "aicommit": "dist/cli.mjs",
+        "aic": "dist/cli.mjs"
     },
     "scripts": {
         "build": "pkgroll --minify",
