@@ -9,6 +9,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    environment: ci
     permissions:
       contents: write
       id-token: write
