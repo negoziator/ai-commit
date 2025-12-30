@@ -23,6 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          registry-url: https://registry.npmjs.org
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -35,18 +36,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
         run: pnpm dlx semantic-release
-
-      - name: Debug OIDC context (no secrets)
-        run: |
-          echo "GITHUB_REF=$GITHUB_REF"
-          echo "GITHUB_WORKFLOW=$GITHUB_WORKFLOW"
-          echo "GITHUB_JOB=$GITHUB_JOB"
-          echo "GITHUB_ENVIRONMENT=$GITHUB_ENVIRONMENT"
-
-      - name: Publish to npm
-        env:
-          NPM_CONFIG_PROVENANCE: true
-          NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
-          NODE_AUTH_TOKEN: ""
-          NPM_TOKEN: ""
-        run: npm run build && npm publish --provenance --access public
