@@ -23,7 +23,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: https://registry.npmjs.org
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -47,5 +46,7 @@ jobs:
       - name: Publish to npm
         env:
           NPM_CONFIG_PROVENANCE: true
-          NPM_CONFIG_ALWAYS_AUTH: true
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+          NODE_AUTH_TOKEN: ""
+          NPM_TOKEN: ""
         run: npm run build && npm publish --provenance --access public
