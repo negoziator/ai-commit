@@ -37,6 +37,13 @@ jobs:
           NPM_CONFIG_PROVENANCE: true
         run: pnpm dlx semantic-release
 
+      - name: Debug OIDC context (no secrets)
+        run: |
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "GITHUB_WORKFLOW=$GITHUB_WORKFLOW"
+          echo "GITHUB_JOB=$GITHUB_JOB"
+          echo "GITHUB_ENVIRONMENT=$GITHUB_ENVIRONMENT"
+
       - name: Publish to npm
         env:
           NPM_CONFIG_PROVENANCE: true
