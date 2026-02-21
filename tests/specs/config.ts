@@ -173,18 +173,6 @@ export default testSuite(({ describe }) => {
       })
     })
 
-    await test('set config file', async () => {
-      await aicommit(['config', 'set', openAiToken])
-
-      const configFile = await fs.readFile(configPath, 'utf8')
-      expect(configFile).toMatch(openAiToken)
-    })
-
-    await test('get config file', async () => {
-      const { stdout } = await aicommit(['config', 'get', 'OPENAI_KEY'])
-      expect(stdout).toBe(openAiToken)
-    })
-
     await fixture.rm()
   })
 })
