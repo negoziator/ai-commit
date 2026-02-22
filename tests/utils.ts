@@ -1,12 +1,21 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { execa, execaNode, type Options } from 'execa';
+import { execa, execaNode } from 'execa';
 import {
     createFixture as createFixtureBase,
     type FileTree,
     type FsFixture,
 } from 'fs-fixture';
 import { loadEnvironment } from '../src/utils/dotenv.js';
+
+// Narrowed options type so execa v9 infers stdout as `string`
+interface TestExecaOptions {
+    cwd?: string;
+    env?: Record<string, string | undefined>;
+    reject?: boolean;
+    extendEnv?: boolean;
+    nodeOptions?: string[];
+}
 
 // Set NODE_ENV to test so loadEnvironment uses .env.local
 process.env.NODE_ENV = 'test';
@@ -24,7 +33,7 @@ const createAicommit = (fixture: FsFixture) => {
 
     return (
         args?: string[],
-        options?: Options,
+        options?: TestExecaOptions,
     ) => execaNode(aicommitPath, args, {
         cwd: fixture.path,
         ...options,
@@ -43,7 +52,7 @@ export const createGit = async (cwd: string) => {
     const git = (
         command: string,
         args?: string[],
-        options?: Options,
+        options?: TestExecaOptions,
     ) => (
         execa(
             'git',

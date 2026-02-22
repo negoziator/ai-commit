@@ -1,7 +1,7 @@
 import https from 'https';
 import { ClientRequest, IncomingMessage } from 'http';
 import OpenAI from 'openai';
-import createHttpsProxyAgent from 'https-proxy-agent';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 import { LLMProvider } from './base.js';
 import { KnownError } from '../utils/error.js';
 import { generatePrompt } from '../utils/prompt.js';
@@ -151,7 +151,7 @@ export default class AzureOpenAIProvider extends LLMProvider<AzureOpenAIConfig> 
                     timeout: this.config.timeout,
                     agent: (
                         this.config.proxy
-                            ? createHttpsProxyAgent(this.config.proxy) as unknown as https.Agent
+                            ? new HttpsProxyAgent(this.config.proxy) as unknown as https.Agent
                             : undefined
                     ),
                 },

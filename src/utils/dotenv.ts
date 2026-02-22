@@ -78,7 +78,7 @@ export async function loadEnvFile(options?: {
         }
 
         return parsed;
-    } catch (error) {
+    } catch {
         // Silently fail if .env file can't be read
         return {};
     }
