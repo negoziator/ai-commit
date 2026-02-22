@@ -23,23 +23,22 @@
     },
     "scripts": {
         "build": "pkgroll --minify",
-        "lint": "npx eslint --no-cache .",
+        "lint": "eslint --no-cache .",
         "type-check": "tsc",
         "test": "tsx tests",
         "prepack": "npm run build && clean-pkg-json"
     },
     "devDependencies": {
         "@clack/prompts": "^1.0.0",
+        "@eslint/js": "^10.0.1",
         "@types/ini": "^4.0.0",
         "@types/inquirer": "^9.0.3",
         "@types/node": "^22.0.0",
-        "@typescript-eslint/eslint-plugin": "^8.0.0",
-        "@typescript-eslint/parser": "^8.0.0",
         "braces": "^3.0.3",
         "clean-pkg-json": "^1.2.0",
         "cleye": "^2.0.0",
         "cross-spawn": "^7.0.6",
-        "eslint": "^8.57.0",
+        "eslint": "^10.0.1",
         "execa": "^8.0.0",
         "fs-fixture": "^2.0.0",
         "https-proxy-agent": "^7.0.0",
@@ -51,7 +50,8 @@
         "pkgroll": "^2.0.0",
         "simple-git-hooks": "^2.8.1",
         "tsx": "^4.19.0",
-        "typescript": "^5.6.2"
+        "typescript": "^5.6.2",
+        "typescript-eslint": "^8.56.0"
     },
     "release": {
         "branches": [
