@@ -40,7 +40,7 @@
         "cleye": "^2.0.0",
         "cross-spawn": "^7.0.6",
         "eslint": "^8.57.0",
-        "execa": "^7.0.0",
+        "execa": "^8.0.0",
         "fs-fixture": "^2.0.0",
         "https-proxy-agent": "^7.0.0",
         "ini": "^6.0.0",
