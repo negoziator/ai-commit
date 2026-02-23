@@ -22,7 +22,7 @@
         "aic": "./dist/cli.mjs"
     },
     "scripts": {
-        "build": "pkgroll --minify",
+        "build": "pkgroll --minify --export-condition=node",
         "lint": "eslint --no-cache .",
         "type-check": "tsc",
         "test": "tsx tests",
