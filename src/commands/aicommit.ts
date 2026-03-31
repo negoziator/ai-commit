@@ -171,7 +171,11 @@ export default async (
         }
     }
 
-    await execa('git', ['commit', '-m', message, ...rawArgv]);
+    const commitArgs = ['commit', '-m', message, ...rawArgv];
+    if (config.signoff) {
+        commitArgs.push('--signoff');
+    }
+    await execa('git', commitArgs);
 
     outro(`${green('✔')} Successfully committed!`);
 })().catch((error) => {
