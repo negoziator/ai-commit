@@ -25,6 +25,7 @@ export interface ProjectConfig {
   'max-completion-tokens'?: string;
   'auto-confirm'?: string | boolean;
   'prepend-reference'?: string | boolean;
+  signoff?: string | boolean;
 }
 
 /**
