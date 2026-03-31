@@ -210,6 +210,18 @@ const configParsers = {
         parseAssert('prepend-reference', /^(?:true|false)$/.test(prependReference), 'Must be a boolean');
         return prependReference === 'true';
     },
+    signoff(signoff?: string | boolean) {
+        if (!signoff) {
+            return false;
+        }
+
+        if (typeof signoff === 'boolean') {
+            return signoff;
+        }
+
+        parseAssert('signoff', /^(?:true|false)$/.test(signoff), 'Must be a boolean');
+        return signoff === 'true';
+    },
 } as const;
 
 type ConfigKeys = keyof typeof configParsers;

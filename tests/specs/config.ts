@@ -173,6 +173,30 @@ export default testSuite(({ describe }) => {
       })
     })
 
+    await describe('signoff', ({ test }) => {
+      test('must be a boolean', async () => {
+        const { stderr } = await aicommit(['config', 'set', 'signoff=abc'], {
+          reject: false
+        })
+
+        expect(stderr).toMatch('Must be a boolean')
+      })
+
+      test('updates config', async () => {
+        const defaultConfig = await aicommit(['config', 'get', 'signoff'])
+        expect(defaultConfig.stdout).toBe('signoff=false')
+
+        const signoff = 'signoff=true'
+        await aicommit(['config', 'set', signoff])
+
+        const configFile = await fs.readFile(configPath, 'utf8')
+        expect(configFile).toMatch(signoff)
+
+        const get = await aicommit(['config', 'get', 'signoff'])
+        expect(get.stdout).toBe(signoff)
+      })
+    })
+
     await fixture.rm()
   })
 })
